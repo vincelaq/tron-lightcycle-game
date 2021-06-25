@@ -1,11 +1,14 @@
 // Document elements used
 let grid = document.querySelector(".grid");
+let squares = document.querySelectorAll(".grid div");
 // Identify game state variable
 let currentPlayerOne = [];
 let currentPlayerTwo = [];
 let direction;
 let directionTwo;
 let interval;
+let playerOneLives;
+let playerTwoLives;
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
@@ -23,6 +26,8 @@ function colorSquares(squares) {
 }
 // Function to start game
 function startGame(){
+    playerOneLives = 5;
+    playerTwoLives = 5;
     currentPlayerOne.push(80);
     currentPlayerTwo.push(3119);
     direction = 1;
@@ -36,11 +41,17 @@ function startGame(){
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
     if (checkHits(squares, currentPlayerOne, direction)) {
-       alert("Blue Derezzed");
-        return clearInterval(interval);
+        playerOneLives -= 1;
+        alert("Blue Derezzed");
+        clearInterval(interval);
+        checkWinner();
+        return 
     } else if (checkHits(squares, currentPlayerTwo, directionTwo)) {
+        playerTwoLives -= 1;
         alert("Orange Derezzed");
-        return clearInterval(interval);
+        clearInterval(interval);
+        checkWinner();
+        return 
     } else {
         movePlayer(squares);
     }
@@ -118,6 +129,33 @@ document.addEventListener("keydown",
             }
         }
 });
+// Sets Round Function
+function round(){
+    currentPlayerOne = [];
+    currentPlayerTwo = [];
+    let squares = document.querySelectorAll(".grid div");
+    for (let i=0; i<3200; i++){
+        squares[i].classList.remove("playerOne","playerTwo")
+    };
+    currentPlayerOne.push(80);
+    currentPlayerTwo.push(3119);
+    direction = 1;
+    directionTwo = -1;
+    colorSquares(squares);
+    //set interval here when ready
+    interval = setInterval(moveOutcome,100);
+}
+// Checks for game winner
+function checkWinner() {
+    if (playerOneLives <= 0) {
+        alert("Orange has won!")
+    } else if (playerTwoLives <= 0) {
+        alert("Blue has won!")
+    } else{
+        alert("Ready for next round?");
+        return round();
+    }
+}
 
 createBoard();
 startGame();
