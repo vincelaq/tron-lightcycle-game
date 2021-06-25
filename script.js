@@ -30,14 +30,14 @@ function colorSquares(squares) {
 function startGame(){
     playerOneLives = 5;
     playerTwoLives = 5;
-    currentPlayerOne.push(80);
-    currentPlayerTwo.push(3119);
+    currentPlayerOne.push(240);
+    currentPlayerTwo.push(2959);
     direction = 1;
     directionTwo = -1;
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
     //set interval here when ready
-    interval = setInterval(moveOutcome,100);
+    interval = setInterval(moveOutcome,60);
 }
 // Function for move outcome
 function moveOutcome() {
@@ -88,13 +88,13 @@ function round(){
     for (let i=0; i<3200; i++){
         squares[i].classList.remove("playerOne","playerTwo")
     };
-    currentPlayerOne.push(80);
-    currentPlayerTwo.push(3119);
+    currentPlayerOne.push(240);
+    currentPlayerTwo.push(2959);
     direction = 1;
     directionTwo = -1;
     colorSquares(squares);
     //set interval here when ready
-    interval = setInterval(moveOutcome,100);
+    interval = setInterval(moveOutcome,60);
 };
 // Checks for game winner
 function checkWinner() {
@@ -166,7 +166,7 @@ function computer() {
     let squares = document.querySelectorAll(".grid div");
     if (directionTwo === xDirection) {
         if ((currentPlayerTwo[0]+3) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+3].classList.contains("playerOne") || squares[currentPlayerTwo[0]+3].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(160)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(320)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
                 directionTwo = -yDirection;
             } else {
                 directionTwo = yDirection;
@@ -174,14 +174,14 @@ function computer() {
         }
     } else if (directionTwo === -xDirection){
         if ((currentPlayerTwo[0]-3) % yDirection === 0 || squares[currentPlayerTwo[0]-3].classList.contains("playerOne") || squares[currentPlayerTwo[0]-3].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(160)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(320)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
                 directionTwo = -yDirection;
             } else {
                 directionTwo = yDirection;
             }
         }
     } else if(directionTwo === yDirection) {
-        if ((currentPlayerTwo[0]+(240)) + yDirection >= (yDirection *40) || squares[currentPlayerTwo[0]+(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(240)].classList.contains("playerTwo")) {
+        if ((currentPlayerTwo[0]+(320)) + yDirection >= (yDirection *40) || squares[currentPlayerTwo[0]+(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(240)].classList.contains("playerTwo")) {
             if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
                 directionTwo = -xDirection;
             } else {
@@ -189,13 +189,31 @@ function computer() {
             }
         }
     } else if(directionTwo === -yDirection) {
-        if ((currentPlayerTwo[0]-(240)) - yDirection <= 0 || squares[currentPlayerTwo[0]-(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]-(240)].classList.contains("playerTwo")) {
+        if ((currentPlayerTwo[0]-(320)) - yDirection <= 0 || squares[currentPlayerTwo[0]-(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]-(240)].classList.contains("playerTwo")) {
             if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
                 directionTwo = -xDirection;
             } else {
                 directionTwo = xDirection;
             }
         }
+    }
+    // Adding random factor to AI
+    if(Math.floor(Math.random()*100) === 7) {
+        if(Math.floor(Math.random()*2) === 0) {
+            if(Math.abs(directionTwo) === xDirection) {
+                directionTwo = -yDirection
+            } else {
+                directionTwo = -xDirection
+            }
+        } else {
+            if(Math.abs(directionTwo) === xDirection) {
+                directionTwo = -yDirection
+            } else {
+                directionTwo = xDirection
+            }
+        }
+    } else {
+        return
     }
 }
 document.addEventListener("DOMContentLoaded", function() {
