@@ -4,6 +4,9 @@ let grid = document.querySelector(".grid");
 let currentPlayerOne = [];
 let direction;
 let interval;
+// Identify game constants
+let yDirection = 80;
+let xDirection = 1;
 // Function to create grid
 function createBoard(){ 
     for (let i=0; i<3200; i++){
@@ -28,7 +31,8 @@ function startGame(){
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
     if (checkHits(squares)) {
-       return clearInterval(interval);
+       alert("hit")
+        return clearInterval(interval);
     } else {
         movePlayer(squares);
     }
@@ -38,9 +42,14 @@ function movePlayer(squares) {
     currentPlayerOne.unshift(currentPlayerOne[0]+direction);
     colorSquares(squares);
 }
-// Function to check for hits
+// Function to check for hits (space taken, bottom wall, )
 function checkHits(squares){
-    if (squares[currentPlayerOne[0]+direction].classList.contains("playerOne")) {
+    if (squares[currentPlayerOne[0]+direction].classList.contains("playerOne") ||
+        (currentPlayerOne[0] + yDirection >=  (yDirection * yDirection) && direction === yDirection) ||
+        (currentPlayerOne[0] % yDirection === (yDirection - 1) && direction === 1) ||
+        (currentPlayerOne[0] % yDirection === 0 && direction === -1) ||
+        (currentPlayerOne[0] - yDirection <= 0 && direction === -yDirection)
+    ) {
         return true;
     } else {
         return false;
