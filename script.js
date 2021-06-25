@@ -9,6 +9,8 @@ let directionTwo;
 let interval;
 let playerOneLives;
 let playerTwoLives;
+let playerOneScore;
+let playerTwoScore;
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
@@ -40,14 +42,17 @@ function startGame(){
 // Function for move outcome
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
+    computer(squares);
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
+        playerTwoScore += 1;
         alert("Blue Derezzed");
         clearInterval(interval);
         checkWinner();
         return 
     } else if (checkHits(squares, currentPlayerTwo, directionTwo)) {
         playerTwoLives -= 1;
+        playerOneScore += 1;
         alert("Orange Derezzed");
         clearInterval(interval);
         checkWinner();
@@ -62,7 +67,7 @@ function movePlayer(squares) {
     currentPlayerTwo.unshift(currentPlayerTwo[0]+directionTwo);
     colorSquares(squares);
 }
-// Function to check for hits (space taken, bottom wall, )
+// Function to check for hits (bottom wall,  )
 function checkHits(squares, player, playerDirection){
     if ((player[0] + yDirection >=  (yDirection * 40) && playerDirection === yDirection) ||
         (player[0] % yDirection === (yDirection - 1) && playerDirection === xDirection) ||
@@ -74,7 +79,34 @@ function checkHits(squares, player, playerDirection){
         } else {
             return false;
     };
-}
+};
+// Sets Round Function
+function round(){
+    currentPlayerOne = [];
+    currentPlayerTwo = [];
+    let squares = document.querySelectorAll(".grid div");
+    for (let i=0; i<3200; i++){
+        squares[i].classList.remove("playerOne","playerTwo")
+    };
+    currentPlayerOne.push(80);
+    currentPlayerTwo.push(3119);
+    direction = 1;
+    directionTwo = -1;
+    colorSquares(squares);
+    //set interval here when ready
+    interval = setInterval(moveOutcome,100);
+};
+// Checks for game winner
+function checkWinner() {
+    if (playerOneLives <= 0) {
+        alert("Orange has won!")
+    } else if (playerTwoLives <= 0) {
+        alert("Blue has won!")
+    } else{
+        alert("Ready for next round?");
+        return round();
+    }
+};
 // Event Listener for controlling direction for player one
 document.addEventListener("keydown", 
     function(event) {
@@ -129,33 +161,45 @@ document.addEventListener("keydown",
             }
         }
 });
-// Sets Round Function
-function round(){
-    currentPlayerOne = [];
-    currentPlayerTwo = [];
+// Computer AI logic
+function computer() {
     let squares = document.querySelectorAll(".grid div");
-    for (let i=0; i<3200; i++){
-        squares[i].classList.remove("playerOne","playerTwo")
-    };
-    currentPlayerOne.push(80);
-    currentPlayerTwo.push(3119);
-    direction = 1;
-    directionTwo = -1;
-    colorSquares(squares);
-    //set interval here when ready
-    interval = setInterval(moveOutcome,100);
-}
-// Checks for game winner
-function checkWinner() {
-    if (playerOneLives <= 0) {
-        alert("Orange has won!")
-    } else if (playerTwoLives <= 0) {
-        alert("Blue has won!")
-    } else{
-        alert("Ready for next round?");
-        return round();
+    if (directionTwo === xDirection) {
+        if ((currentPlayerTwo[0]+3) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+3].classList.contains("playerOne") || squares[currentPlayerTwo[0]+3].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(160)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+                directionTwo = -yDirection;
+            } else {
+                directionTwo = yDirection;
+            }
+        }
+    } else if (directionTwo === -xDirection){
+        if ((currentPlayerTwo[0]-3) % yDirection === 0 || squares[currentPlayerTwo[0]-3].classList.contains("playerOne") || squares[currentPlayerTwo[0]-3].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(160)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+                directionTwo = -yDirection;
+            } else {
+                directionTwo = yDirection;
+            }
+        }
+    } else if(directionTwo === yDirection) {
+        if ((currentPlayerTwo[0]+(240)) + yDirection >= (yDirection *40) || squares[currentPlayerTwo[0]+(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(240)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+                directionTwo = -xDirection;
+            } else {
+                directionTwo = xDirection;
+            }
+        }
+    } else if(directionTwo === -yDirection) {
+        if ((currentPlayerTwo[0]-(240)) - yDirection <= 0 || squares[currentPlayerTwo[0]-(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]-(240)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+                directionTwo = -xDirection;
+            } else {
+                directionTwo = xDirection;
+            }
+        }
     }
 }
-
-createBoard();
-startGame();
+document.addEventListener("DOMContentLoaded", function() {
+    createBoard();
+    startGame();
+}
+)
