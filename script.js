@@ -10,8 +10,8 @@ let xDirection = 1;
 // Function to create grid
 function createBoard(){ 
     for (let i=0; i<3200; i++){
-    let div = document.createElement("div") 
-    grid.appendChild(div) 
+    let div = document.createElement("div");
+    grid.appendChild(div); 
     }
 } ;
 // Function to color squares
@@ -44,16 +44,32 @@ function movePlayer(squares) {
 }
 // Function to check for hits (space taken, bottom wall, )
 function checkHits(squares){
-    if (squares[currentPlayerOne[0]+direction].classList.contains("playerOne") ||
-        (currentPlayerOne[0] + yDirection >=  (yDirection * yDirection) && direction === yDirection) ||
-        (currentPlayerOne[0] % yDirection === (yDirection - 1) && direction === 1) ||
-        (currentPlayerOne[0] % yDirection === 0 && direction === -1) ||
-        (currentPlayerOne[0] - yDirection <= 0 && direction === -yDirection)
+    if ((currentPlayerOne[0] + yDirection >=  (yDirection * 40) && direction === yDirection) ||
+        (currentPlayerOne[0] % yDirection === (yDirection - 1) && direction === xDirection) ||
+        (currentPlayerOne[0] % yDirection === 0 && direction === -xDirection) ||
+        (currentPlayerOne[0] - yDirection <= 0 && direction === -yDirection) ||
+        squares[currentPlayerOne[0]+direction].classList.contains("playerOne")
     ) {
         return true;
     } else {
         return false;
     }
 }
+// Event Listener for controlling direction
+document.addEventListener("keydown", 
+    function(event) {
+        if (event.key === 'a') {
+            return direction = -xDirection;
+        } else if (event.key === 'd') {
+            return direction = xDirection;
+        } else if (event.key === 'w') {
+            return direction = -yDirection;
+        } else if (event.key === 's') {
+            return direction = yDirection;
+        }
+});
+document.addEventListener("mouseover", function(event){
+    console.log(event.target.textContent)
+})
 createBoard();
 startGame();
