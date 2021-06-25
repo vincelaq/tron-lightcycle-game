@@ -35,8 +35,11 @@ function startGame(){
 // Function for move outcome
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
-    if (checkHits(squares, currentPlayerOne, direction) || checkHits(squares, currentPlayerTwo, directionTwo)) {
-       alert("hit")
+    if (checkHits(squares, currentPlayerOne, direction)) {
+       alert("Blue Derezzed");
+        return clearInterval(interval);
+    } else if (checkHits(squares, currentPlayerTwo, directionTwo)) {
+        alert("Orange Derezzed");
         return clearInterval(interval);
     } else {
         movePlayer(squares);
@@ -56,7 +59,7 @@ function checkHits(squares, player, playerDirection){
         (player[0] - yDirection <= 0 && playerDirection === -yDirection) ||
         squares[player[0]+playerDirection].classList.contains("playerOne") ||
         squares[player[0]+playerDirection].classList.contains("playerTwo")) {
-            return true;s
+            return true;
         } else {
             return false;
     };
@@ -64,22 +67,55 @@ function checkHits(squares, player, playerDirection){
 // Event Listener for controlling direction for player one
 document.addEventListener("keydown", 
     function(event) {
+        
         if (event.key === 'a') {
-            return direction = -xDirection;
+            if(Math.abs(direction) !== xDirection) {
+                return direction = -xDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 'd') {
-            return direction = xDirection;
+            if(Math.abs(direction) !== xDirection) {
+                return direction = xDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 'w') {
-            return direction = -yDirection;
+            if(Math.abs(direction) !== yDirection) {
+                return direction = -yDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 's') {
-            return direction = yDirection;
+            if(Math.abs(direction) !== yDirection) {
+                return direction = yDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 'ArrowLeft') {
-            return directionTwo = -xDirection;
+            if(Math.abs(directionTwo) !== xDirection) {
+                return directionTwo = -xDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 'ArrowRight') {
-            return directionTwo = xDirection;
+            if(Math.abs(directionTwo) !== xDirection) {
+                return directionTwo = xDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 'ArrowUp') {
-            return directionTwo = -yDirection;
+            if(Math.abs(directionTwo) !== yDirection) {
+                return directionTwo = -yDirection;
+            } else {
+                return;
+            }
         } else if (event.key === 'ArrowDown') {
-            return directionTwo = yDirection;
+            if(Math.abs(directionTwo) !== yDirection) {
+                return directionTwo = yDirection;
+            } else {
+                return;
+            }
         }
 });
 
