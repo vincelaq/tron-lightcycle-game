@@ -11,6 +11,7 @@ let playerOneLives;
 let playerTwoLives;
 let playerOneScore = 0;
 let playerTwoScore = 0;
+let gameStatus = 'start';
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
@@ -37,8 +38,8 @@ function startGame(){
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
     updateStats();
-    //set interval here when ready
-    interval = setInterval(moveOutcome,60);
+    on();
+    //interval = setInterval(moveOutcome,60);
 }
 // Function for move outcome
 function moveOutcome() {
@@ -47,14 +48,16 @@ function moveOutcome() {
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
         playerTwoScore += 1;
-        alert("Blue Derezzed");
+        gameStatus = 'roundBlue';
+        //alert("Blue Derezzed");
         clearInterval(interval);
         checkWinner();
         return 
     } else if (checkHits(squares, currentPlayerTwo, directionTwo)) {
         playerTwoLives -= 1;
         playerOneScore += 1;
-        alert("Orange Derezzed");
+        gameStatus = 'roundOrange';
+        //alert("Orange Derezzed");
         clearInterval(interval);
         checkWinner();
         return 
@@ -95,17 +98,22 @@ function round(){
     directionTwo = -1;
     colorSquares(squares);
     updateStats();
+    on();
     //set interval here when ready
     interval = setInterval(moveOutcome,60);
 };
 // Checks for game winner
 function checkWinner() {
     if (playerOneLives <= 0) {
-        alert("Orange has won!")
+        gameStatus = 'orangeWinner';
+        
+        //alert("Orange has won!")
     } else if (playerTwoLives <= 0) {
-        alert("Blue has won!")
+        on();
+        gameStatus = 'blueWinner';
+        //alert("Blue has won!")
     } else{
-        alert("Ready for next round?");
+        //alert("Ready for next round?");
         return round();
     }
 };
@@ -239,4 +247,52 @@ document.addEventListener("DOMContentLoaded", function() {
     createBoard();
     startGame();
 }
-)
+);
+// Overlay on and off function and edit text in overlay
+function on() {
+    document.getElementById("overlay").style.display = "block";
+    editOverlay(overlayMessage(gameStatus));
+    document.addEventListener("keyup", function(event) {
+        if (event.key === 'Escape') {
+            document.location.href = 'index.html';
+        } else {
+            if (status === 'start') {
+                off();
+                return interval = setInterval(moveOutcome,60);
+                
+            } else if (status === 'roundBlue' || status === 'roundOrange') {
+                off();
+                interval = setInterval(moveOutcome,60);
+            } else {
+                off();
+            }
+            
+        }
+    })
+};
+function off() {
+    document.removeEventListener("keyup", function(event) {
+        if (event.key === 'Escape') {
+            document.location.href = 'index.html';
+        } else {
+            off();
+        }
+    })
+    document.getElementById("overlay").style.display = "none";
+};
+function editOverlay(content) {
+    document.querySelector("#overlay-content").innerHTML = `${content}`;
+};
+function overlayMessage(status) {
+    if (status === 'start') {
+        return 'Arena is loaded ... Press any key to start'
+    } else if (status === 'roundBlue') {
+        return 'Player 2 has been derezzed!';
+    } else if (status === 'roundOrange') {
+        return 'Player 1 has been derezzed!';
+    } else if (status === 'blueWinner') {
+        return 'Player 1 wins!';
+    } else if (status === 'orangeWinner') {
+        return 'Player 2 wins!';
+    }
+};
