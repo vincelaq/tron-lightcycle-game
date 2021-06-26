@@ -1,20 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+body {
+    background-color: black;
+    width: 1600px;
+    margin: 0 auto;
+}
 .grid {
     width: 1600px;
     height: 800px;
-    border: 1px solid red;
+    /* border: 1px solid darkgray; */
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    background-color: black;
 }
 .grid div {
     width: 20px;
     height: 20px;
-    border:1px black solid;
-    box-sizing:border-box
+    /* border:1px white solid; */
+    box-sizing:border-box;
+ 
 }
 .playerOne {
-    background-color: blue;
+    background-color: rgb(180, 252, 252);
+    box-shadow: 0px 0px 40px 5px rgb(120, 252, 252);
 }
 .playerTwo {
-    background-color: orange;
+    background-color: rgb(255, 210, 89);
+    box-shadow: 0px 0px 40px 5px rgb(246, 183, 69);
+}
+.stats {
+    /* border: 1px solid red; */
+    /* height: 150px; */
+}
+.player {
+    width: 600px;
+    /* height: 125px; */
+}
+.score {
+    width: 400px;
+    /* height: 175px; */
+}
+.name {
+    font-family: 'Press Start 2P';
+    font-size: 40px;
+    /* border: 1px solid green; */
+    /* height: 75px; */
+}
+.lives {
+    /* border: 1px solid yellow; */
+    /* height: 75px; */
+}
+.scoreboard {
+    /* border: 1px solid pink; */
+    color: white;
+    width: 33%;
+    text-align: center;
+    font-family: 'Press Start 2P';
+}
+.lives {
+    padding-top: 25px;
+}
+.image-lives {
+    width: 75px;
+    height: auto;
+}
+#player-two-lives {
+    text-align: right;
+}
+#score-title {
+    font-size: 25px;
+}
+#score-board-container {
+    display: inline-flex;
+}
+#player-one-name {
+    color: rgb(120, 252, 252);
+    text-align: left;
+    text-shadow: 0px 0px 10px rgb(120, 252, 252);
+}
+#player-two-name {
+    color: rgb(246, 183, 69);
+    text-align: right;
+    text-shadow: 0px 0px 10px rgb(246, 183, 69);
+}
+#player-one-score {
+    font-size: 65px;
+    padding-top: 25px;
+    color: rgb(120, 252, 252);
+    text-shadow: 0px 0px 10px rgb(120, 252, 252);
+}
+#player-two-score {
+    font-size: 65px;
+    padding-top: 25px;
+    color:rgb(246, 183, 69);
+    text-shadow: 0px 0px 10px rgb(246, 183, 69);
+}
+#container {
+    /* border: 1px solid blue; */
+    width: 1600px;
+    height: 125px;
+    margin: 0 auto;
+    display: inline-flex;
+}
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
 }

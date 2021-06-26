@@ -9,8 +9,8 @@ let directionTwo;
 let interval;
 let playerOneLives;
 let playerTwoLives;
-let playerOneScore;
-let playerTwoScore;
+let playerOneScore = 0;
+let playerTwoScore = 0;
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
@@ -36,6 +36,7 @@ function startGame(){
     directionTwo = -1;
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
+    updateStats();
     //set interval here when ready
     interval = setInterval(moveOutcome,60);
 }
@@ -93,6 +94,7 @@ function round(){
     direction = 1;
     directionTwo = -1;
     colorSquares(squares);
+    updateStats();
     //set interval here when ready
     interval = setInterval(moveOutcome,60);
 };
@@ -198,7 +200,7 @@ function computer() {
         }
     }
     // Adding random factor to AI
-    if(Math.floor(Math.random()*100) === 7) {
+    if(Math.floor(Math.random()*150) === 7) {
         if(Math.floor(Math.random()*2) === 0) {
             if(Math.abs(directionTwo) === xDirection) {
                 directionTwo = -yDirection
@@ -207,7 +209,7 @@ function computer() {
             }
         } else {
             if(Math.abs(directionTwo) === xDirection) {
-                directionTwo = -yDirection
+                directionTwo = yDirection
             } else {
                 directionTwo = xDirection
             }
@@ -216,6 +218,23 @@ function computer() {
         return
     }
 }
+function updateStats() {
+    let oneLives = document.querySelector("#player-one-lives");
+    let twoLives = document.querySelector("#player-two-lives");
+    let oneScore = document.querySelector("#player-one-score");
+    let twoScore = document.querySelector("#player-two-score");
+    oneScore.textContent = playerOneScore;
+    twoScore.textContent = playerTwoScore;
+    oneLives.innerHTML = "";
+    twoLives.innerHTML = "";
+    for (let i=0; i<playerOneLives; i++) {
+        oneLives.innerHTML += '<img class="image-lives" src="images/blue-disc.png" />';
+    }
+    for (let i=0; i<playerTwoLives; i++) {
+        twoLives.innerHTML += '<img class="image-lives" src="images/orange-disc.png" />';
+    }
+}
+// On page load event listener
 document.addEventListener("DOMContentLoaded", function() {
     createBoard();
     startGame();
