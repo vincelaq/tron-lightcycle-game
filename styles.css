@@ -74,7 +74,7 @@ body {
     height: 35px;
     background-color: white;
     border: 1px solid white;
-    animation: blink 1.5s linear infinite alternate;
+    animation: blink 1s linear infinite alternate;
 }
 @keyframes blink {
     50% {
