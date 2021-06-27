@@ -12,6 +12,7 @@ let playerTwoLives;
 let playerOneScore = 0;
 let playerTwoScore = 0;
 let gameStatus = 'start';
+let cpuActive = false;
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
@@ -45,7 +46,7 @@ function startGame(){
 // Function for move outcome
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
-    computer(squares);
+    if (cpuActive) {computer(squares)};
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
         playerTwoScore += 1;
@@ -169,7 +170,7 @@ document.addEventListener("keydown",
             } else {
                 return;
             }
-        } else if (event.key === 'Enter' && document.getElementById("overlay").style.display === "block") {
+        } else if (event.key === 'Enter' && document.getElementById("overlay").style.display === "block" && gameStatus !== 'blueWinner' && gameStatus !== 'orangeWinner') {
             if (gameStatus === 'start') {
                 interval = setInterval(moveOutcome,60);
                 off();               
@@ -259,6 +260,7 @@ function updateStats() {
 }
 // Overlay on and off function and edit text in overlay
 function on() {
+    popUpOverlay();
     document.getElementById("overlay").style.display = "block";
     editOverlay(overlayMessage(gameStatus));
 };
@@ -270,15 +272,16 @@ function editOverlay(content) {
 };
 function overlayMessage(status) {
     if (status === 'start') {
-        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large">Grid lightcycle.exe boot up sequence complete...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER to Start <br><br> Press DELETE to go to Menu</div>'
+        popUpOverlay();
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe boot up sequence complete...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER to Start <br><br> Press DELETE to go to Menu</div>'
     } else if (status === 'roundBlue') {
-        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large">Player 2 has been derezzed! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round! <span class="player-two-name">Player 2</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
     } else if (status === 'roundOrange') {
-        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large">Player 1 has been derezzed! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round! <span class="player-one-name">Player 1</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
     } else if (status === 'blueWinner') {
-        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large"><br>Player 1 wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game OR Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press DELETE to go to Menu</div>';
     } else if (status === 'orangeWinner') {
-        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large"><br>Player 2 wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game OR Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press DELETE to go to Menu</div>';
     }
 };
 // On page load event listener
@@ -287,6 +290,7 @@ document.addEventListener("DOMContentLoaded", function() {
     startGame();
 }
 );
+// Function to clear game state
 function reinitialize() {
     currentPlayerOne = [];
     currentPlayerTwo = [];
@@ -302,4 +306,15 @@ function reinitialize() {
     for (let i=0; i<3200; i++){
         squares[i].classList.remove("playerOne","playerTwo")
     };
+};
+// Function animate overlay
+function popUpOverlay () {
+    $("#overlay-content").animate({
+        height: '250px',
+        width: '800px',
+    },1500)
+}
+// Function to delay anything when needed
+function delay() {
+    setTimeout(function(){}, 10000);
 };
