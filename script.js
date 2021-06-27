@@ -46,9 +46,9 @@ function startGame(){
 // Function for move outcome
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
-    if (cpuActive === true) {
+    if (cpuActive === 'true') {
         computer(squares)
-    };
+    }
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
         playerTwoScore += 1;
