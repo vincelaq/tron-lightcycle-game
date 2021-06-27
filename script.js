@@ -12,7 +12,7 @@ let playerTwoLives;
 let playerOneScore = 0;
 let playerTwoScore = 0;
 let gameStatus = 'start';
-let cpuActive = false;
+let cpuActive = localStorage.getItem("cpuActive");
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
@@ -46,7 +46,9 @@ function startGame(){
 // Function for move outcome
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
-    if (cpuActive) {computer(squares)};
+    if (cpuActive === true) {
+        computer(squares)
+    };
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
         playerTwoScore += 1;
@@ -180,7 +182,7 @@ document.addEventListener("keydown",
             } else {
                 off();
             }
-        } else if (event.key === 'Delete') {
+        } else if (event.key === 'Shift') {
             document.location.href = 'index.html';
         } else if (event.key === 'Backspace') {
             reinitialize();
@@ -273,15 +275,15 @@ function editOverlay(content) {
 function overlayMessage(status) {
     if (status === 'start') {
         popUpOverlay();
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe boot up sequence complete...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER to Start <br><br> Press DELETE to go to Menu</div>'
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe boot up sequence complete...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER to Start <br><br> Press SHIFT to go to Menu</div>'
     } else if (status === 'roundBlue') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round! <span class="player-two-name">Player 2</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round! <span class="player-two-name">Player 2</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'roundOrange') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round! <span class="player-one-name">Player 1</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round! <span class="player-one-name">Player 1</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'blueWinner') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     } else if (status === 'orangeWinner') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press DELETE to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     }
 };
 // On page load event listener

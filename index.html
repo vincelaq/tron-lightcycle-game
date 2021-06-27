@@ -5,34 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tron: Lightcycle Battle</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles-index.css">
+    <script src="script-index.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="landing-container">
-        <div id="left" class="home"></div>
+        <div id="left" class="home">
+            <div id="grid2"></div>
+        </div>
         <div id="center" class="home">
             <img src="images/tron-logo.jpeg" id="tron-logo">
             <span id="logo-title">LIGHTCYCLE BATTLE</span>
             <div id="menu-container">
                 <div id="menu">
                     <ul id="selection" class="list">
-                        <li>1 PLAYER</li>
-                        <li>2 PLAYER</li>
-                        <li>HIGHSCORE</li>
-                        <li>HELP</li>
+                        <li id="menu-item-0">1 PLAYER</li>
+                        <li id="menu-item-1">2 PLAYER</li>
+                        <li id="menu-item-2">HIGHSCORE</li>
+                        <li id="menu-item-3">CREDITS</li>
                     </ul>
                     <ul id="menu-icon" class="list">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li id="menu-icon-0"></li>
+                        <li id="menu-icon-1"></li>
+                        <li id="menu-icon-2"></li>
+                        <li id="menu-icon-3"></li>
                     </ul>
                 </div>
             </div>
+            <div id="controls-container">
+                <div id="player-one-controls" class="controls">
+                    <div id="break" class="button-border"></div>
+                    <div id="w" class="button-border"><div class="button">W</div></div>
+                    <div id="break" class="button-border"></div>
+                    <div id="a" class="button-border"><div class="button">A</div></div>
+                    <div id="s" class="button-border"><div class="button">S</div></div>
+                    <div id="d" class="button-border"><div class="button">D</div></div>
+                </div>
+                <div id="player-two-controls" class="controls">
+                    <div id="break" class="button-border"></div>
+                    <div id="up" class="button-border"><div class="button">⇡</div></div>
+                    <div id="break" class="button-border"></div>
+                    <div id="left" class="button-border"><div class="button">⇠</div></div>
+                    <div id="down" class="button-border"><div class="button">⇣</div></div>
+                    <div id="right" class="button-border"><div class="button">⇢</div></div>
+                </div>
+            </div>
+            <div id="controller-name">
+                <div>Player 1 Controls</div>
+                <div>Player 2 Controls</div>
+            </div>
         </div>
-        <div id="right" class="home"></div>
+        <div id="right" class="home">
+            <div class="grid"></div>
+        </div>
         <footer></footer>
     </div>
 </body>
