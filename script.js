@@ -29,6 +29,7 @@ function colorSquares(squares) {
 }
 // Function to start game
 function startGame(){
+    gameStatus = 'start';
     playerOneLives = 5;
     playerTwoLives = 5;
     currentPlayerOne.push(240);
@@ -48,7 +49,7 @@ function moveOutcome() {
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
         playerTwoScore += 1;
-        gameStatus = 'roundBlue';
+        gameStatus = 'roundOrange';
         //alert("Blue Derezzed");
         clearInterval(interval);
         checkWinner();
@@ -56,7 +57,7 @@ function moveOutcome() {
     } else if (checkHits(squares, currentPlayerTwo, directionTwo)) {
         playerTwoLives -= 1;
         playerOneScore += 1;
-        gameStatus = 'roundOrange';
+        gameStatus = 'roundBlue';
         //alert("Orange Derezzed");
         clearInterval(interval);
         checkWinner();
@@ -99,18 +100,17 @@ function round(){
     colorSquares(squares);
     updateStats();
     on();
-    //set interval here when ready
-    interval = setInterval(moveOutcome,60);
+    //interval = setInterval(moveOutcome,60);
 };
 // Checks for game winner
 function checkWinner() {
     if (playerOneLives <= 0) {
         gameStatus = 'orangeWinner';
-        
+        on();
         //alert("Orange has won!")
     } else if (playerTwoLives <= 0) {
-        on();
         gameStatus = 'blueWinner';
+        on();
         //alert("Blue has won!")
     } else{
         //alert("Ready for next round?");
@@ -122,54 +122,69 @@ document.addEventListener("keydown",
     function(event) {
         
         if (event.key === 'a') {
-            if(Math.abs(direction) !== xDirection) {
+            if(Math.abs(direction) !== xDirection && document.getElementById("overlay").style.display === "none") {
                 return direction = -xDirection;
             } else {
                 return;
             }
         } else if (event.key === 'd') {
-            if(Math.abs(direction) !== xDirection) {
+            if(Math.abs(direction) !== xDirection && document.getElementById("overlay").style.display === "none") {
                 return direction = xDirection;
             } else {
                 return;
             }
         } else if (event.key === 'w') {
-            if(Math.abs(direction) !== yDirection) {
+            if(Math.abs(direction) !== yDirection && document.getElementById("overlay").style.display === "none") {
                 return direction = -yDirection;
             } else {
                 return;
             }
         } else if (event.key === 's') {
-            if(Math.abs(direction) !== yDirection) {
+            if(Math.abs(direction) !== yDirection && document.getElementById("overlay").style.display === "none") {
                 return direction = yDirection;
             } else {
                 return;
             }
         } else if (event.key === 'ArrowLeft') {
-            if(Math.abs(directionTwo) !== xDirection) {
+            if(Math.abs(directionTwo) !== xDirection && document.getElementById("overlay").style.display === "none") {
                 return directionTwo = -xDirection;
             } else {
                 return;
             }
         } else if (event.key === 'ArrowRight') {
-            if(Math.abs(directionTwo) !== xDirection) {
+            if(Math.abs(directionTwo) !== xDirection && document.getElementById("overlay").style.display === "none") {
                 return directionTwo = xDirection;
             } else {
                 return;
             }
-        } else if (event.key === 'ArrowUp') {
+        } else if (event.key === 'ArrowUp' && document.getElementById("overlay").style.display === "none") {
             if(Math.abs(directionTwo) !== yDirection) {
                 return directionTwo = -yDirection;
             } else {
                 return;
             }
-        } else if (event.key === 'ArrowDown') {
+        } else if (event.key === 'ArrowDown' && document.getElementById("overlay").style.display === "none") {
             if(Math.abs(directionTwo) !== yDirection) {
                 return directionTwo = yDirection;
             } else {
                 return;
             }
-        }
+        } else if (event.key === 'Enter' && document.getElementById("overlay").style.display === "block") {
+            if (gameStatus === 'start') {
+                interval = setInterval(moveOutcome,60);
+                off();               
+            } else if (gameStatus === 'roundBlue' || gameStatus === 'roundOrange') {
+                interval = setInterval(moveOutcome,60);
+                off();
+            } else {
+                off();
+            }
+        } else if (event.key === 'Delete') {
+            document.location.href = 'index.html';
+        } else if (event.key === 'Backspace') {
+            reinitialize();
+            startGame();
+        } 
 });
 // Computer AI logic
 function computer() {
@@ -242,42 +257,12 @@ function updateStats() {
         twoLives.innerHTML += '<img class="image-lives" src="images/orange-disc.png" />';
     }
 }
-// On page load event listener
-document.addEventListener("DOMContentLoaded", function() {
-    createBoard();
-    startGame();
-}
-);
 // Overlay on and off function and edit text in overlay
 function on() {
     document.getElementById("overlay").style.display = "block";
     editOverlay(overlayMessage(gameStatus));
-    document.addEventListener("keyup", function(event) {
-        if (event.key === 'Escape') {
-            document.location.href = 'index.html';
-        } else {
-            if (status === 'start') {
-                off();
-                return interval = setInterval(moveOutcome,60);
-                
-            } else if (status === 'roundBlue' || status === 'roundOrange') {
-                off();
-                interval = setInterval(moveOutcome,60);
-            } else {
-                off();
-            }
-            
-        }
-    })
 };
 function off() {
-    document.removeEventListener("keyup", function(event) {
-        if (event.key === 'Escape') {
-            document.location.href = 'index.html';
-        } else {
-            off();
-        }
-    })
     document.getElementById("overlay").style.display = "none";
 };
 function editOverlay(content) {
@@ -285,14 +270,36 @@ function editOverlay(content) {
 };
 function overlayMessage(status) {
     if (status === 'start') {
-        return 'Arena is loaded ... Press any key to start'
+        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large">Grid lightcycle.exe boot up sequence complete...<div class="blinking-cursor"></div></div><br><div class="message-small">Press ENTER to Start <br><br> Press DELETE to go to Menu</div>'
     } else if (status === 'roundBlue') {
-        return 'Player 2 has been derezzed!';
+        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large">Player 2 has been derezzed! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
     } else if (status === 'roundOrange') {
-        return 'Player 1 has been derezzed!';
+        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large">Player 1 has been derezzed! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press ENTER for Next Round <br><br> Press DELETE to go to Menu</div>';
     } else if (status === 'blueWinner') {
-        return 'Player 1 wins!';
+        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large"><br>Player 1 wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game OR Press DELETE to go to Menu</div>';
     } else if (status === 'orangeWinner') {
-        return 'Player 2 wins!';
+        return '<div class ="message-title">!!!Incoming message!!!</div><div class="message-large"><br>Player 2 wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game OR Press DELETE to go to Menu</div>';
     }
+};
+// On page load event listener
+document.addEventListener("DOMContentLoaded", function() {
+    createBoard();
+    startGame();
+}
+);
+function reinitialize() {
+    currentPlayerOne = [];
+    currentPlayerTwo = [];
+    direction;
+    directionTwo;
+    interval;
+    playerOneLives;
+    playerTwoLives;
+    playerOneScore = 0;
+    playerTwoScore = 0;
+    gameStatus = 'start';
+    let squares = document.querySelectorAll(".grid div");
+    for (let i=0; i<3200; i++){
+        squares[i].classList.remove("playerOne","playerTwo")
+    };
 };
