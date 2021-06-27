@@ -65,7 +65,7 @@ function startStream() {
     streamFour.push(35);
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
-    setTimeout(function(){ interval = setInterval(moveStream,110); }, 8000);
+    setTimeout(function(){ interval = setInterval(moveStream,110); }, 7000);
     setTimeout(function(){ directionTwo = 1; }, 18000);
     setTimeout(function(){ directionThree = -1; }, 20000);
     setTimeout(function(){ directionTwo = 0; }, 20000);
