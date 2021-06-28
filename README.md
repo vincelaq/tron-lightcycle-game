@@ -71,7 +71,6 @@ Every challenge was solved by "googling"
   - The CSS overlay replacing document alerts was challenging because I had never done anything like that from scratch. W3Schools has a overlay tutorial on how to do this.
 
 ## Additional information:
-Add anything else you would like us to know
-
-## App Demo
-Link to GitHub project (i.e. - username.github.io)
+### Identified Bugs Still in Production
+1. Players can cross eachother and game still progresses - Game script allows this because at a specific moment the movement ahead is an empty square, by the time the CSS application and game check runs its another player has occupied it and running the same checks.
+2. Frame rate lag - The game lags at certain times because of the numbe of functions, calculations and checks it has to do for each interval.
