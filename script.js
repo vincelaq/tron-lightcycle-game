@@ -4,6 +4,7 @@ let squares = document.querySelectorAll(".grid div");
 // Identify game state variable
 let currentPlayerOne = [];
 let currentPlayerTwo = [];
+let currentLife = [];
 let direction;
 let directionTwo;
 let interval;
@@ -27,6 +28,9 @@ function createBoard(){
 function colorSquares(squares) {
     squares[currentPlayerOne[0]].classList.add("playerOne");
     squares[currentPlayerTwo[0]].classList.add("playerTwo");
+    // if (currentLife[0]) {
+    //     squares[currentLife[0]].classList.add("lifeUp")
+    // };
 }
 // Function to start game
 function startGame(){
@@ -84,22 +88,37 @@ function checkHits(squares, player, playerDirection){
         squares[player[0]+playerDirection].classList.contains("playerOne") ||
         squares[player[0]+playerDirection].classList.contains("playerTwo")) {
             return true;
-        } else {
-            return false;
+    } else {
+        if (squares[player[0]+playerDirection].classList.contains("lifeUp")){
+            if (player === currentPlayerOne) {
+                squares[player[0]+playerDirection].classList.remove("lifeUp")
+                playerOneLives ++;
+                updateStats();
+            } else if (player === currentPlayerTwo) {
+                squares[player[0]+playerDirection].classList.remove("lifeUp")
+                playerTwoLives ++;
+                updateStats();
+            }
+        }
+        return false;
     };
 };
 // Sets Round Function
 function round(){
     currentPlayerOne = [];
     currentPlayerTwo = [];
+    currentLife = [];
     let squares = document.querySelectorAll(".grid div");
     for (let i=0; i<3200; i++){
-        squares[i].classList.remove("playerOne","playerTwo")
+        squares[i].classList.remove("playerOne","playerTwo","lifeUp")
     };
     currentPlayerOne.push(240);
     currentPlayerTwo.push(2959);
     direction = 1;
     directionTwo = -1;
+    if (lifeDecider()) {
+        putLifeWhere();
+    };
     colorSquares(squares);
     updateStats();
     on();
@@ -174,10 +193,10 @@ document.addEventListener("keydown",
             }
         } else if (event.key === 'Enter' && document.getElementById("overlay").style.display === "block" && gameStatus !== 'blueWinner' && gameStatus !== 'orangeWinner') {
             if (gameStatus === 'start') {
-                interval = setInterval(moveOutcome,60);
+                interval = setInterval(moveOutcome,45);
                 off();               
             } else if (gameStatus === 'roundBlue' || gameStatus === 'roundOrange') {
-                interval = setInterval(moveOutcome,60);
+                interval = setInterval(moveOutcome,45);
                 off();
             } else {
                 off();
@@ -224,24 +243,24 @@ function computer() {
                 directionTwo = xDirection;
             }
         }
-    }
-    // Adding random factor to AI
-    if(Math.floor(Math.random()*150) === 7) {
-        if(Math.floor(Math.random()*2) === 0) {
-            if(Math.abs(directionTwo) === xDirection) {
-                directionTwo = -yDirection
-            } else {
-                directionTwo = -xDirection
-            }
-        } else {
-            if(Math.abs(directionTwo) === xDirection) {
-                directionTwo = yDirection
-            } else {
-                directionTwo = xDirection
-            }
-        }
+    // }
+    // // Adding random factor to AI
+    // if(Math.floor(Math.random()*150) === 7) {
+    //     if(Math.floor(Math.random()*2) === 0) {
+    //         if(Math.abs(directionTwo) === xDirection) {
+    //             directionTwo = -yDirection
+    //         } else {
+    //             directionTwo = -xDirection
+    //         }
+    //     } else {
+    //         if(Math.abs(directionTwo) === xDirection) {
+    //             directionTwo = yDirection
+    //         } else {
+    //             directionTwo = xDirection
+    //         }
+    //     }
     } else {
-        return
+        return;
     }
 }
 function updateStats() {
@@ -316,7 +335,24 @@ function popUpOverlay () {
         width: '800px',
     },1500)
 }
-// Function to delay anything when needed
-function delay() {
-    setTimeout(function(){}, 10000);
+// Function to decide if a life will be generated
+function lifeDecider() {
+    if(Math.floor(Math.random()* 2) === 1) {
+        return true;
+    } else {
+        return false
+    }
+};
+// Function to decide where to put the extra life
+function putLifeWhere() {
+    let squares = document.querySelectorAll(".grid div");
+    let gridNumber = Math.floor(Math.random()*3200);
+   if (gridNumber === 249 || gridNumber === 2959) {
+        gridNumber += 80;
+        currentLife.push(gridNumber);
+        squares[currentLife[0]].classList.add("lifeUp")
+   } else {
+        currentLife.push(gridNumber);
+        squares[currentLife[0]].classList.add("lifeUp")
+   }
 };

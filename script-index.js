@@ -66,13 +66,13 @@ function startStream() {
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
     setTimeout(function(){ interval = setInterval(moveStream,110); }, 3500);
-    setTimeout(function(){ directionTwo = 1; }, 15000);
-    setTimeout(function(){ directionThree = -1; }, 17000);
-    setTimeout(function(){ directionTwo = 0; }, 17000);
-    setTimeout(function(){ directionThree = 60; }, 19000);
-    setTimeout(function(){ directionTwo = 60; }, 18000);
-    setTimeout(function(){ direction = 1; }, 17000);
-    setTimeout(function(){ clearInterval(interval); }, 21000);
+    setTimeout(function(){ directionTwo = 1; }, 14000);
+    setTimeout(function(){ directionThree = -1; }, 16000);
+    setTimeout(function(){ directionTwo = 0; }, 16000);
+    setTimeout(function(){ directionThree = 60; }, 18000);
+    setTimeout(function(){ directionTwo = 60; }, 1700);
+    setTimeout(function(){ direction = 1; }, 16000);
+    setTimeout(function(){ clearInterval(interval); }, 22000);
 }
 // Set a function to continue in intervals
 function moveStream() {

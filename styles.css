@@ -22,11 +22,15 @@ body {
 }
 .playerOne {
     background-color: rgb(180, 252, 252);
-    box-shadow: 0px 0px 40px 5px rgb(120, 252, 252);
+    box-shadow: 0px 0px 20px 1px rgb(120, 252, 252);
 }
 .playerTwo {
     background-color: rgb(255, 210, 89);
-    box-shadow: 0px 0px 40px 5px rgb(246, 183, 69);
+    box-shadow: 0px 0px 20px 1px rgb(246, 183, 69);
+}
+.lifeUp {
+    background-color: white;
+    box-shadow: 0px 0px 20px 5px rgb(120, 252, 252);
 }
 .player {
     width: 600px;
