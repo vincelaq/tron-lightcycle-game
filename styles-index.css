@@ -147,3 +147,63 @@ li {
     font-family: 'Press Start 2P';
     padding-top: 20px;
 }
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color:seashell;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+#overlay-content {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-size: 40px;
+    font-family: 'Press Start 2P';
+    color: white;
+    border: 2px double red;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    padding: 20px;
+    background-color: rgba(0,0,0,0.5);
+}
+.message-title {
+    font-size: 20px;
+    text-align: center;
+    padding: 5px 0;
+    margin-bottom: 25px;
+    color: darkred;
+    background-color: gray;
+}
+.message-small {
+    font-size: 12px;
+    text-align: center;
+}
+.message-large {
+    font-size: 16px;
+}
+.blinking-cursor {
+    display: inline-block;
+    width: 5px;
+    height: 20px;
+    background-color: white;
+    border: 1px solid white;
+    animation: blink 1s linear infinite alternate;
+}
+@keyframes blink {
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}

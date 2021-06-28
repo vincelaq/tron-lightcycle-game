@@ -1,6 +1,8 @@
 // Document elements
 let grid = document.querySelector(".grid");
 let squares = document.querySelectorAll(".grid div");
+// Declared variables
+let message;
 // Listeners for menu hover
 $(`#menu-item-0`).hover(function(){
     $(`#menu-icon-0`).html('<img class="selection-icon" src="images/blue-disc.png">');
@@ -30,6 +32,14 @@ $("#menu-item-0").click(function() {
 $("#menu-item-1").click(function() {
     localStorage.setItem("cpuActive", false);
     document.location.href = 'game.html';
+});
+$("#menu-item-2").click(function() {
+    message = 'help';
+    on();
+});
+$("#menu-item-3").click(function() {
+    message = 'credits';
+    on();
 });
 // Create grid on home page
 function createGrid(){ 
@@ -93,3 +103,35 @@ document.addEventListener("DOMContentLoaded", function() {
     createGrid();
     startStream();
 });
+// Overlay on and off
+function on() {
+    popUpOverlay();
+    document.getElementById("overlay").style.display = "block";
+    editOverlay(overlayMessage(message));
+};
+function off() {
+    document.getElementById("overlay").style.display = "none";
+};
+function popUpOverlay () {
+    $("#overlay-content").animate({
+        height: '250px',
+        width: '800px',
+    },1500)
+}
+function editOverlay(content) {
+    document.querySelector("#overlay-content").innerHTML = `${content}`;
+};
+function overlayMessage(message){
+    if (message === 'help') {
+        return '<div class ="message-title">!!!Help!!!</div><div class="message-large">Welcome to the "GRID"! The objective is to out-survive your opponent in the arena by avoiding crashing into walls. You and your opponent extend your own walls as you move forward. Collect glowing squares to get an extra life, lose all your lives and you face permanent deresolution ... <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
+    } else {
+        return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Thank you for playing Tron Lightcycle Battle! This game was created by Vincent Laquindanum without the permission or consent of the Disney franchise. All Tron properties are own by Disney and was not created by Vincent Laquindanum. This game is just for fun and for the sole purpose of finding a job. Please, don\'t sue me ... <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
+    }
+
+};
+document.addEventListener("keydown", function(event){
+    if(event.code === "Space") {
+        off();
+        message = "";
+    }
+})
