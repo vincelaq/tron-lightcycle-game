@@ -294,7 +294,7 @@ function updateStats() {
         oneLives.innerHTML += '<img class="image-lives" src="images/blue-disc.png" />';
     }
     for (let i=0; i<playerTwoLives; i++) {
-        twoLives.innerHTML += '<img class="image-lives" src="images/orange-disc.png" />';
+        twoLives.innerHTML += '<img class="image-lives" src="images/red-disc.png" />';
     }
 }
 // Overlay on and off function and edit text in overlay
