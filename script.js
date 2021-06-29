@@ -84,8 +84,10 @@ function checkHits(squares, player, playerDirection){
         (player[0] % yDirection === (yDirection - 1) && playerDirection === xDirection) ||
         (player[0] % yDirection === 0 && playerDirection === -xDirection) ||
         (player[0] - yDirection <= 0 && playerDirection === -yDirection) ||
-        squares[player[0]+playerDirection].classList.contains("playerOne") ||
-        squares[player[0]+playerDirection].classList.contains("playerTwo")) {
+        (player === currentPlayerOne && squares[player[0]+playerDirection].classList.contains("playerOne")) ||
+        (player === currentPlayerTwo && squares[player[0]+playerDirection].classList.contains("playerTwo")) || 
+        (player === currentPlayerOne && squares[player[0]].classList.contains("playerTwo")) ||
+        (player === currentPlayerTwo && squares[player[0]].classList.contains("playerOne"))) {
             return true;
     } else {
         if (squares[player[0]+playerDirection].classList.contains("lifeUp")){
