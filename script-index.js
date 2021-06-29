@@ -54,9 +54,6 @@ let streamTwo = [];
 let streamThree = [];
 let streamFour = [];
 let streamFive = [];
-let direction = 20;
-let directionTwo = 20;
-let directionThree = 20;
 let streamOneOffset = (20*9);
 let streamTwoOffset = 5+(20*18);
 let streamThreeOffset = 10+(20*9);
@@ -83,27 +80,42 @@ function startStream() {
     streamFive.push(streamFiveOffset);
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
-    setTimeout(function(){ interval = setInterval(moveStream,100); }, 2000);
-    // setTimeout(function(){ directionTwo = 1; }, 14000);
-    // setTimeout(function(){ directionThree = -1; }, 16000);
-    // setTimeout(function(){ directionTwo = 0; }, 16000);
-    // setTimeout(function(){ directionThree = 30; }, 18000);
-    // setTimeout(function(){ directionTwo = 30; }, 1700);
-    // setTimeout(function(){ direction = 1; }, 16000);
-    // setTimeout(function(){ clearInterval(interval); }, 22000);
+    setTimeout(function(){ interval = setInterval(moveStream,100); }, 1000);
+
 }
 // Set a function to continue in intervals
 function moveStream() {
     let squares = document.querySelectorAll(".grid div");
-    if (streamFour[0] > 4050) {
-        clearInterval(interval);
-    } else {
-        streamOne.unshift(streamOne[0]+directionThree);
+    if (streamFive[0] < 3980) {
+        streamOne.unshift(streamOne[0]+direction);
         streamTwo.unshift(streamTwo[0]+direction);
-        streamThree.unshift(streamThree[0]+directionTwo);
-        streamFour.unshift(streamFour[0]+directionTwo);
+        streamThree.unshift(streamThree[0]+direction);
+        streamFour.unshift(streamFour[0]+direction);
         streamFive.unshift(streamFive[0]+direction);
-        colorSquares(squares);
+        squares[streamOne[0]].classList.add("streamOne");
+        squares[streamTwo[0]].classList.add("streamTwo");
+        squares[streamThree[0]].classList.add("streamThree");
+        squares[streamFour[0]].classList.add("streamFour");
+        squares[streamFive[0]].classList.add("streamFive");  
+    } else if (streamTwo[0] < 3980) {
+        streamOne.unshift(streamOne[0]+direction);
+        streamTwo.unshift(streamTwo[0]+direction);
+        streamThree.unshift(streamThree[0]+direction);
+        streamFour.unshift(streamFour[0]+direction);
+        squares[streamOne[0]].classList.add("streamOne");
+        squares[streamTwo[0]].classList.add("streamTwo");
+        squares[streamThree[0]].classList.add("streamThree");
+        squares[streamFour[0]].classList.add("streamFour");
+    } else if (streamOne[0] < 3980) {
+        streamOne.unshift(streamOne[0]+direction);
+        streamThree.unshift(streamThree[0]+direction);
+        streamFour.unshift(streamFour[0]+direction); 
+        squares[streamOne[0]].classList.add("streamOne");
+        squares[streamThree[0]].classList.add("streamThree");
+        squares[streamFour[0]].classList.add("streamFour");
+    } else if (streamFour[0] < 3980) {
+        streamFour.unshift(streamFour[0]+direction);
+        squares[streamFour[0]].classList.add("streamFour");
     }
 };
 // On Load execute these functions
