@@ -81,7 +81,7 @@ function startStream() {
     streamFive.push(streamFiveOffset);
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
-    setTimeout(function(){ interval = setInterval(moveStream,100); }, 1000);
+    setTimeout(function(){ interval = setInterval(moveStream,100); }, 600);
 
 }
 // Set a function to continue in intervals
@@ -117,6 +117,8 @@ function moveStream() {
     } else if (streamFour[0] < 3980) {
         streamFour.unshift(streamFour[0]+direction);
         squares[streamFour[0]].classList.add("streamFour");
+    } else {
+        clearInterval(interval);
     }
 };
 // On Load execute these functions
