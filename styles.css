@@ -72,6 +72,10 @@ body {
     font-size: 12px;
     text-align: center;
 }
+.message-large {
+    font-size: 30px;
+    padding-left: 10px;
+}
 .blinking-cursor {
     display: inline-block;
     width: 10px;

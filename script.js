@@ -294,15 +294,15 @@ function editOverlay(content) {
 function overlayMessage(status) {
     if (status === 'start') {
         popUpOverlay();
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe boot up sequence complete...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Start <br><br> Press SHIFT to go to Menu</div>'
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe load complete. Program resolution complete. <br>User ready?...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Start <br><br> Press SHIFT to go to Menu</div>'
     } else if (status === 'roundBlue') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round! <span class="player-two-name">Player 2</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round!<br><br> <span class="player-two-name">Player 2</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'roundOrange') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round! <span class="player-one-name">Player 1</span> derezzed! ...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round!<br><br> <span class="player-one-name">Player 1</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'blueWinner') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     } else if (status === 'orangeWinner') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> wins! ...<div class="blinking-cursor"></div></div><br><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     }
 };
 // On page load event listener
