@@ -17,6 +17,11 @@ let cpuActive = localStorage.getItem("cpuActive");
 // Identify game constants
 let yDirection = 80;
 let xDirection = 1;
+// On page load event listener
+document.addEventListener("DOMContentLoaded", function() {
+    createBoard();
+    startGame();
+});
 // Function to create grid
 function createBoard(){ 
     for (let i=0; i<3200; i++){
@@ -28,9 +33,6 @@ function createBoard(){
 function colorSquares(squares) {
     squares[currentPlayerOne[0]].classList.add("playerOne");
     squares[currentPlayerTwo[0]].classList.add("playerTwo");
-    // if (currentLife[0]) {
-    //     squares[currentLife[0]].classList.add("lifeUp")
-    // };
 }
 // Function to start game
 function startGame(){
@@ -45,7 +47,6 @@ function startGame(){
     colorSquares(squares);
     updateStats();
     on();
-    //interval = setInterval(moveOutcome,60);
 }
 // Function for move outcome
 function moveOutcome() {
@@ -57,7 +58,6 @@ function moveOutcome() {
         playerOneLives -= 1;
         playerTwoScore += 1;
         gameStatus = 'roundOrange';
-        //alert("Blue Derezzed");
         clearInterval(interval);
         checkWinner();
         return 
@@ -65,7 +65,6 @@ function moveOutcome() {
         playerTwoLives -= 1;
         playerOneScore += 1;
         gameStatus = 'roundBlue';
-        //alert("Orange Derezzed");
         clearInterval(interval);
         checkWinner();
         return 
@@ -122,22 +121,39 @@ function round(){
     colorSquares(squares);
     updateStats();
     on();
-    //interval = setInterval(moveOutcome,60);
 };
 // Checks for game winner
 function checkWinner() {
     if (playerOneLives <= 0) {
         gameStatus = 'orangeWinner';
         on();
-        //alert("Orange has won!")
     } else if (playerTwoLives <= 0) {
         gameStatus = 'blueWinner';
         on();
-        //alert("Blue has won!")
     } else{
-        //alert("Ready for next round?");
         return round();
     }
+};
+// Function to decide if an extra life will be generated
+function lifeDecider() {
+    if(Math.floor(Math.random()* 2) === 1) {
+        return true;
+    } else {
+        return false
+    }
+};
+// Function to decide where to put the extra life
+function putLifeWhere() {
+    let squares = document.querySelectorAll(".grid div");
+    let gridNumber = Math.floor(Math.random()*3200);
+   if (gridNumber === 249 || gridNumber === 2959) {
+        gridNumber += 80;
+        currentLife.push(gridNumber);
+        squares[currentLife[0]].classList.add("lifeUp")
+   } else {
+        currentLife.push(gridNumber);
+        squares[currentLife[0]].classList.add("lifeUp")
+   }
 };
 // Event Listener for controlling direction for player one
 document.addEventListener("keydown", 
@@ -291,6 +307,13 @@ function off() {
 function editOverlay(content) {
     document.querySelector("#overlay-content").innerHTML = `${content}`;
 };
+// Function animate overlay
+function popUpOverlay () {
+    $("#overlay-content").animate({
+        height: '250px',
+        width: '800px',
+    },1500)
+};
 function overlayMessage(status) {
     if (status === 'start') {
         popUpOverlay();
@@ -305,12 +328,6 @@ function overlayMessage(status) {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     }
 };
-// On page load event listener
-document.addEventListener("DOMContentLoaded", function() {
-    createBoard();
-    startGame();
-}
-);
 // Function to clear game state
 function reinitialize() {
     currentPlayerOne = [];
@@ -328,31 +345,4 @@ function reinitialize() {
         squares[i].classList.remove("playerOne","playerTwo")
     };
 };
-// Function animate overlay
-function popUpOverlay () {
-    $("#overlay-content").animate({
-        height: '250px',
-        width: '800px',
-    },1500)
-}
-// Function to decide if a life will be generated
-function lifeDecider() {
-    if(Math.floor(Math.random()* 2) === 1) {
-        return true;
-    } else {
-        return false
-    }
-};
-// Function to decide where to put the extra life
-function putLifeWhere() {
-    let squares = document.querySelectorAll(".grid div");
-    let gridNumber = Math.floor(Math.random()*3200);
-   if (gridNumber === 249 || gridNumber === 2959) {
-        gridNumber += 80;
-        currentLife.push(gridNumber);
-        squares[currentLife[0]].classList.add("lifeUp")
-   } else {
-        currentLife.push(gridNumber);
-        squares[currentLife[0]].classList.add("lifeUp")
-   }
-};
+

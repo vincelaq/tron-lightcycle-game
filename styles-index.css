@@ -42,7 +42,7 @@ body {
 .streamFive {
     background-color: rgb(120, 252, 252);
     box-shadow: 0px 0px 40px 5px rgb(120, 252, 252);
-    animation: fader 3s 10s 1 normal forwards;
+    animation: fader 3s 8s 1 normal forwards;
 }
 @keyframes fader {
     0% {
