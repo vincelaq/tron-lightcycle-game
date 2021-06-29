@@ -54,6 +54,7 @@ let streamTwo = [];
 let streamThree = [];
 let streamFour = [];
 let streamFive = [];
+let direction = 20;
 let streamOneOffset = (20*9);
 let streamTwoOffset = 5+(20*18);
 let streamThreeOffset = 10+(20*9);
