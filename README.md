@@ -15,10 +15,11 @@ Each player has five lives at the start of the game. When a player crashes into 
 ![alt text](images/gameplay.png)
 
 ### Design
-Aside from the gameplay being based on the original "Snake" game, the design concept and visuals was straight from the Tron movies. The premise behind the movie is that the main character is sucked into a super computer where he has to play games to avoid getting deresolutioned ("derezzed") or, in other words, computer death (or in the main character's case, actual death). One of these games is a lightcycle game. Both Tron movies (Tron and Tron: Legacy) feature a lightcycle scene and game, where the lightcycle generates a wall in its trail for opponents to crash into.
-
+Aside from the gameplay being based on the original "Snake" game, the design concept and visuals was straight from the Tron movies. The premise behind the movie is that the main character is sucked into a super computer where he has to play games to avoid getting deresolutioned ("derezzed") or, in other words, computer death (or in the main character's case, actual death). One of these games is a lightcycle game. Both Tron movies (Tron and Tron: Legacy) feature a lightcycle scene, where the lightcycle generates a wall in its trail for opponents to crash into.
 ![alt text](images/original-lightcycle.gif)
+![alt text](images/crash.gif)
 ![alt text](images/legacy-lightcycle2.gif)
+![alt text](images/crash2.gif)
 
 ## Wireframes:
 ### Original Concept
@@ -85,5 +86,5 @@ Every challenge was solved by "googling"
 
 ## Additional information:
 ### Identified Bugs Still in Production
-1. Players can cross eachother and game still progresses - Game script allows this because at a specific moment the movement ahead is an empty square, by the time the CSS application and game check runs its another player has occupied it and running the same checks.
+1. Players can cross eachother and game still continues - Game script allows this because at a specific moment the movement ahead is an empty square, by the time the CSS application and game check runs, another player has occupied it and running the same checks.
 2. Frame rate lag - The game lags at certain times because of the numbe of functions, calculations and checks it has to do for each interval.
