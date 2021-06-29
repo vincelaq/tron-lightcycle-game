@@ -25,8 +25,8 @@ body {
     box-shadow: 0px 0px 30px 1px rgb(120, 252, 252);
 }
 .playerTwo {
-    background-color: rgb(214, 150, 87);
-    box-shadow: 0px 0px 30px 1px rgb(190, 135, 53);;
+    background-color: rgb(255, 200, 145);
+    box-shadow: 0px 0px 30px 1px rgb(255, 172, 128);;
 }
 .lifeUp {
     background-color: white;
@@ -107,9 +107,9 @@ body {
     text-shadow: 0px 0px 10px rgb(120, 252, 252);
 }
 .player-two-name {
-    color: rgb(214, 150, 87);
+    color: rgb(255, 200, 145);
     text-align: right;
-    text-shadow: 0px 0px 10px rgb(246, 183, 69);
+    text-shadow: 0px 0px 10px rgb(255, 172, 128);
 }
 #player-one-score {
     font-size: 65px;
@@ -120,8 +120,8 @@ body {
 #player-two-score {
     font-size: 65px;
     padding-top: 25px;
-    color:rgb(214, 150, 87);
-    text-shadow: 0px 0px 10px rgb(246, 183, 69);
+    color:rgb(255, 200, 145);
+    text-shadow: 0px 0px 10px rgb(55, 172, 128);
 }
 #container {
     /* border: 1px solid blue; */

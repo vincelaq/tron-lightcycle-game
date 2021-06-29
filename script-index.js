@@ -81,7 +81,7 @@ function startStream() {
     streamFive.push(streamFiveOffset);
     let squares = document.querySelectorAll(".grid div");
     colorSquares(squares);
-    setTimeout(function(){ interval = setInterval(moveStream,100); }, 400);
+    setTimeout(function(){ interval = setInterval(moveStream,100); }, 200);
 
 }
 // Set a function to continue in intervals
