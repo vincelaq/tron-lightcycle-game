@@ -1,6 +1,14 @@
 // Document elements used
 let grid = document.querySelector(".grid");
 let squares = document.querySelectorAll(".grid div");
+// Audio files and effects
+const extraLife = new Audio('audio/extra-life.wav');
+const crash = new Audio('audio/short-explosion-2.wav');
+const winner = new Audio('audio/achievement-1.wav');
+const loser = new Audio('audio/lose-1.wav');
+const encom = new Audio('audio/encom-2.mp3');
+const disc = new Audio('audio/disc-wars.mp3');
+const end = new Audio('audio/end-titles.mp3');
 // Identify game state variable
 let currentPlayerOne = [];
 let currentPlayerTwo = [];
@@ -88,16 +96,19 @@ function checkHits(squares, player, playerDirection){
         (player === currentPlayerTwo && squares[player[0]+playerDirection].classList.contains("playerTwo")) || 
         (player === currentPlayerOne && squares[player[0]].classList.contains("playerTwo")) ||
         (player === currentPlayerTwo && squares[player[0]].classList.contains("playerOne"))) {
+            playAudio(crash);
             return true;
     } else {
         if (squares[player[0]+playerDirection].classList.contains("lifeUp")){
             if (player === currentPlayerOne) {
                 squares[player[0]+playerDirection].classList.remove("lifeUp")
                 playerOneLives ++;
+                playAudio(extraLife);
                 updateStats();
             } else if (player === currentPlayerTwo) {
                 squares[player[0]+playerDirection].classList.remove("lifeUp")
                 playerTwoLives ++;
+                playAudio(extraLife);
                 updateStats();
             }
         }
@@ -224,7 +235,29 @@ document.addEventListener("keydown",
         } else if (event.key === 'Backspace') {
             reinitialize();
             startGame();
-        } 
+        } else if (event.key === "y") {
+            localStorage.setItem("audioActive", true);
+            playAudio(encom);
+            message = "";
+        } else if (event.key === "n") {
+            localStorage.setItem("audioActive", false);
+            encom.pause();
+            disc.pause();
+            end.pause();
+            message = "";
+        } else if (event.key === '1') {
+            encom.pause();
+            end.pause();
+            playAudio(disc);
+        } else if (event.key === '2') {
+            encom.pause();
+            disc.pause()
+            playAudio(end);
+        } else if (event.key === '3') {
+            encom.pause();
+            disc.pause();
+            end.pause();
+        }
 });
 // Computer AI logic
 function computer() {
@@ -319,14 +352,21 @@ function popUpOverlay () {
 function overlayMessage(status) {
     if (status === 'start') {
         popUpOverlay();
+        playAudio(encom);
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe load complete. Program resolution complete. <br>User ready?...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Start <br><br> Press SHIFT to go to Menu</div>'
     } else if (status === 'roundBlue') {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round!<br><br> <span class="player-two-name">Player 2</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'roundOrange') {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round!<br><br> <span class="player-one-name">Player 1</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'blueWinner') {
+        playAudio(winner);
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     } else if (status === 'orangeWinner') {
+        if(cpuActive === 'true'){
+            playAudio(loser);
+        } else if(cpuActive === 'false') {
+            playAudio(winner);
+        }
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     }
 };
@@ -347,4 +387,10 @@ function reinitialize() {
         squares[i].classList.remove("playerOne","playerTwo")
     };
 };
-
+function playAudio (sound) {
+    if (localStorage.getItem("audioActive") === 'true') {
+        sound.play();
+    } else {
+        return;
+    }
+};
