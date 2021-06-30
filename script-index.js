@@ -3,7 +3,7 @@ let grid = document.querySelector(".grid");
 let squares = document.querySelectorAll(".grid div");
 // Audio files used
 const armory = new Audio('audio/armory.mp3');
-const menuItem = new Audio('audio/blip.aiff');
+const menuItem = new Audio('audio/menu-blip.wav');
 const menuSelect = new Audio('audio/menu-select.wav');
 // Declared variables
 let message;
@@ -171,9 +171,9 @@ function editOverlay(content) {
 };
 function overlayMessage(message){
     if (message === 'help') {
-        return '<div class ="message-title">!!!Help!!!</div><div class="message-large">Welcome to the "GRID"! The objective is to out-survive your opponent by trapping them with your movement generated walls and collecting white boxes for extra lives. When a player has exhausted all of their lives, they face permanent deresolution. Win and the player lives to battle on ... <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
+        return '<div class ="message-title">!!!Help!!!</div><div class="message-large">Welcome to the "GRID"! Your objective is to out-survive your opponent by trapping them with your movement generated walls and collect white boxes for extra lives. When a player has exhausted all of their lives, they face permanent deresolution. <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
     } else if (message === 'credits') {
-        return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Thank you for playing Tron Lightcycle Battle! This game was created by Vincent Laquindanum without the permission or consent of the Disney franchise. All Tron properties are own by Disney and was not created by Vincent Laquindanum. This game is just for fun and for the sole purpose of finding a job. Please, don\'t sue me ... <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
+        return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Thank you for playing Tron Lightcycle Battle! This game was created by Vincent Laquindanum without the permission or consent of Disney. All Tron properties used in this game including the Daft Punk OST are own by Disney and was not created by Vincent Laquindanum. This game is just for fun and for the sole purpose of finding a job. Please, don\'t sue me ... <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
     } else {
         return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Enabling audio will play menu background music (Armory by Daft Punk from the Tron: Legacy Soundtrack) and in-game sound effects. Would you like to enable audio? (You can toggle audio on and off in-game as well with Y and N)<div class="blinking-cursor"></div></div><br><div class="message-small">Press Y to Enable Sounds<br>Press N to Disable Sounds<br>Press SPACE to Close</div>'
     }

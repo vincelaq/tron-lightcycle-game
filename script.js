@@ -29,6 +29,7 @@ let xDirection = 1;
 document.addEventListener("DOMContentLoaded", function() {
     createBoard();
     startGame();
+    playAudio(disc);
 });
 // Function to create grid
 function createBoard(){ 
@@ -237,7 +238,7 @@ document.addEventListener("keydown",
             startGame();
         } else if (event.key === "y") {
             localStorage.setItem("audioActive", true);
-            playAudio(encom);
+            playAudio(disc);
             message = "";
         } else if (event.key === "n") {
             localStorage.setItem("audioActive", false);
@@ -246,14 +247,18 @@ document.addEventListener("keydown",
             end.pause();
             message = "";
         } else if (event.key === '1') {
-            encom.pause();
+            disc.pause();
             end.pause();
-            playAudio(disc);
+            playAudio(encom);
         } else if (event.key === '2') {
             encom.pause();
             disc.pause()
             playAudio(end);
         } else if (event.key === '3') {
+            encom.pause();
+            end.pause();
+            playAudio(disc);
+        } else if (event.key === '0') {
             encom.pause();
             disc.pause();
             end.pause();
@@ -352,7 +357,6 @@ function popUpOverlay () {
 function overlayMessage(status) {
     if (status === 'start') {
         popUpOverlay();
-        playAudio(encom);
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe load complete. Program resolution complete. <br>User ready?...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Start <br><br> Press SHIFT to go to Menu</div>'
     } else if (status === 'roundBlue') {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round!<br><br> <span class="player-two-name">Player 2</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
