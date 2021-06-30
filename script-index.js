@@ -175,7 +175,7 @@ function overlayMessage(message){
     } else if (message === 'credits') {
         return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Thank you for playing Tron Lightcycle Battle! This game was created by Vincent Laquindanum without the permission or consent of Disney. All Tron properties used in this game including the Daft Punk OST are own by Disney and was not created by Vincent Laquindanum. This game is just for fun and for the sole purpose of finding a job. Please, don\'t sue me ... <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Close</div>'
     } else {
-        return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Enabling audio will play menu background music (Armory by Daft Punk from the Tron: Legacy Soundtrack) and in-game sound effects. Would you like to enable audio? (You can toggle audio on and off in-game as well with Y and N)<div class="blinking-cursor"></div></div><br><div class="message-small">Press Y to Enable Sounds<br>Press N to Disable Sounds<br>Press SPACE to Close</div>'
+        return '<div class ="message-title">!!!Disclaimer!!!</div><div class="message-large">Enabling audio will play background music and in-game sound effects. These options can be toggled in-game as well.<div class="blinking-cursor"></div></div><br><div class="message-small">Press Y to Enable Sounds<br>Press N to Disable Sounds<br>Press 0 to Toggle Music Off<br>Press SPACE to Close</div>'
     }
 };
 document.addEventListener("keydown", function(event){
@@ -189,6 +189,10 @@ document.addEventListener("keydown", function(event){
         message = "";
     } else if (event.key === "n") {
         localStorage.setItem("audioActive", false);
+        off();
+        armory.pause();
+        message = "";
+    } else if (event.key === "0") {
         off();
         armory.pause();
         message = "";
