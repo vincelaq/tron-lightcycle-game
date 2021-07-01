@@ -23,7 +23,7 @@ let playerTwoScore = 0;
 let gameStatus = 'start';
 let cpuActive = localStorage.getItem("cpuActive");
 // Identify game constants
-let yDirection = 80;
+let yDirection = 160;
 let xDirection = 1;
 // On page load event listener
 document.addEventListener("DOMContentLoaded", function() {
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 // Function to create grid
 function createBoard(){ 
-    for (let i=0; i<3200; i++){
+    for (let i=0; i<12800; i++){
     let div = document.createElement("div");
     grid.appendChild(div); 
     }
@@ -48,8 +48,8 @@ function startGame(){
     gameStatus = 'start';
     playerOneLives = 5;
     playerTwoLives = 5;
-    currentPlayerOne.push(240);
-    currentPlayerTwo.push(2959);
+    currentPlayerOne.push(800);
+    currentPlayerTwo.push(11999);
     direction = 1;
     directionTwo = -1;
     let squares = document.querySelectorAll(".grid div");
@@ -89,7 +89,7 @@ function movePlayer(squares) {
 }
 // Function to check for hits (bottom wall,  )
 function checkHits(squares, player, playerDirection){
-    if ((player[0] + yDirection >=  (yDirection * 40) && playerDirection === yDirection) ||
+    if ((player[0] + yDirection >=  (yDirection * 80) && playerDirection === yDirection) ||
         (player[0] % yDirection === (yDirection - 1) && playerDirection === xDirection) ||
         (player[0] % yDirection === 0 && playerDirection === -xDirection) ||
         (player[0] - yDirection <= 0 && playerDirection === -yDirection) ||
@@ -122,11 +122,11 @@ function round(){
     currentPlayerTwo = [];
     currentLife = [];
     let squares = document.querySelectorAll(".grid div");
-    for (let i=0; i<3200; i++){
+    for (let i=0; i<12800; i++){
         squares[i].classList.remove("playerOne","playerTwo","lifeUp")
     };
-    currentPlayerOne.push(240);
-    currentPlayerTwo.push(2959);
+    currentPlayerOne.push(800);
+    currentPlayerTwo.push(11999);
     direction = 1;
     directionTwo = -1;
     if (lifeDecider()) {
@@ -159,9 +159,9 @@ function lifeDecider() {
 // Function to decide where to put the extra life
 function putLifeWhere() {
     let squares = document.querySelectorAll(".grid div");
-    let gridNumber = Math.floor(Math.random()*3200);
-   if (gridNumber === 249 || gridNumber === 2959) {
-        gridNumber += 80;
+    let gridNumber = Math.floor(Math.random()*12800);
+   if (gridNumber === 800 || gridNumber === 11999) {
+        gridNumber += 160;
         currentLife.push(gridNumber);
         squares[currentLife[0]].classList.add("lifeUp")
    } else {
@@ -337,7 +337,6 @@ function updateStats() {
 }
 // Overlay on and off function and edit text in overlay
 function on() {
-    popUpOverlay();
     document.getElementById("overlay").style.display = "block";
     editOverlay(overlayMessage(gameStatus));
 };
@@ -387,7 +386,7 @@ function reinitialize() {
     playerTwoScore = 0;
     gameStatus = 'start';
     let squares = document.querySelectorAll(".grid div");
-    for (let i=0; i<3200; i++){
+    for (let i=0; i<12800; i++){
         squares[i].classList.remove("playerOne","playerTwo")
     };
 };
