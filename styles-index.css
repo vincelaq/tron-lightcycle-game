@@ -214,6 +214,7 @@ li {
     margin-top: 35px;
     font-size: 12px;
     text-align: center;
+    line-height: 18px;
 }
 .message-large {
     font-size: 20px;
@@ -226,6 +227,9 @@ li {
     background-color: white;
     border: 1px solid white;
     animation: blink 1s linear infinite alternate;
+}
+.overlay-key {
+    color: yellow;
 }
 @keyframes blink {
     50% {

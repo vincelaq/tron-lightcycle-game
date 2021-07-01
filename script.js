@@ -89,11 +89,11 @@ function movePlayer(squares) {
 }
 // Function to check for hits (bottom wall,  )
 function checkHits(squares, player, playerDirection){
-    if ((player[0] + yDirection >=  (yDirection * 80) && playerDirection === yDirection) ||
-        (player[0] % yDirection === (yDirection - 1) && playerDirection === xDirection) ||
-        (player[0] % yDirection === 0 && playerDirection === -xDirection) ||
-        (player[0] - yDirection <= 0 && playerDirection === -yDirection) ||
-        (player === currentPlayerOne && squares[player[0]+playerDirection].classList.contains("playerOne")) ||
+    if ((player[0] + yDirection >=  (yDirection * 80) && playerDirection === yDirection) || // Bottom wall hit
+        (player[0] % yDirection === (yDirection - 1) && playerDirection === xDirection) || // Right wall hit
+        (player[0] % yDirection === 0 && playerDirection === -xDirection) || // Left wall hit
+        (player[0] - yDirection <= 0 && playerDirection === -yDirection) || // Top wall hit
+        (player === currentPlayerOne && squares[player[0]+playerDirection].classList.contains("playerOne")) || 
         (player === currentPlayerTwo && squares[player[0]+playerDirection].classList.contains("playerTwo")) || 
         (player === currentPlayerOne && squares[player[0]].classList.contains("playerTwo")) ||
         (player === currentPlayerTwo && squares[player[0]].classList.contains("playerOne"))) {
@@ -223,10 +223,10 @@ document.addEventListener("keydown",
             }
         } else if (event.code === 'Space' && document.getElementById("overlay").style.display === "block" && gameStatus !== 'blueWinner' && gameStatus !== 'orangeWinner') {
             if (gameStatus === 'start') {
-                interval = setInterval(moveOutcome,45);
+                interval = setInterval(moveOutcome,40);
                 off();               
             } else if (gameStatus === 'roundBlue' || gameStatus === 'roundOrange') {
-                interval = setInterval(moveOutcome,45);
+                interval = setInterval(moveOutcome,40);
                 off();
             } else {
                 off();
@@ -279,7 +279,7 @@ function computer() {
     let squares = document.querySelectorAll(".grid div");
     if (directionTwo === xDirection) {
         if ((currentPlayerTwo[0]+3) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+3].classList.contains("playerOne") || squares[currentPlayerTwo[0]+3].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(320)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(480)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
                 directionTwo = -yDirection;
             } else {
                 directionTwo = yDirection;
@@ -287,14 +287,14 @@ function computer() {
         }
     } else if (directionTwo === -xDirection){
         if ((currentPlayerTwo[0]-3) % yDirection === 0 || squares[currentPlayerTwo[0]-3].classList.contains("playerOne") || squares[currentPlayerTwo[0]-3].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(320)) >= (yDirection * 40) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(320)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
                 directionTwo = -yDirection;
             } else {
                 directionTwo = yDirection;
             }
         }
     } else if(directionTwo === yDirection) {
-        if ((currentPlayerTwo[0]+(320)) + yDirection >= (yDirection *40) || squares[currentPlayerTwo[0]+(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(240)].classList.contains("playerTwo")) {
+        if ((currentPlayerTwo[0]+(320)) + yDirection >= (yDirection * 80) || squares[currentPlayerTwo[0]+(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(240)].classList.contains("playerTwo")) {
             if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
                 directionTwo = -xDirection;
             } else {
@@ -358,21 +358,21 @@ function editOverlay(content) {
 };
 function overlayMessage(status) {
     if (status === 'start') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe load complete. Program resolution complete. <br>User ready?...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Start <br><br> Press SHIFT to go to Menu</div>'
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe load complete. Program resolution complete. <br>User ready?...<div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">SPACE</span> to Start <br><br> Press <span class="overlay-key">SHIFT</span> to go to Menu</div>'
     } else if (status === 'roundBlue') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round!<br><br> <span class="player-two-name">Player 2</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round! <div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">SPACE</span> for Next Round <br><br> Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
     } else if (status === 'roundOrange') {
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round!<br><br> <span class="player-one-name">Player 1</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round! <div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">SPACE</span> for Next Round <br><br> Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
     } else if (status === 'blueWinner') {
         playAudio(winner, 'sound');
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">BACKSPACE</span> for New Game <br><br>Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
     } else if (status === 'orangeWinner') {
         if(cpuActive === 'true'){
             playAudio(loser, 'sound');
         } else if(cpuActive === 'false') {
             playAudio(winner, 'sound');
         }
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
+        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">BACKSPACE</span> for New Game <br><br>Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
     }
 };
 // Function to clear game state
