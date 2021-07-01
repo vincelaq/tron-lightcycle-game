@@ -29,7 +29,7 @@ let xDirection = 1;
 document.addEventListener("DOMContentLoaded", function() {
     createBoard();
     startGame();
-    playAudio(disc);
+    playAudio(disc, 'music');
 });
 // Function to create grid
 function createBoard(){ 
@@ -61,7 +61,7 @@ function startGame(){
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
     if (cpuActive === 'true') {
-        computer(squares)
+        computer();
     }
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
@@ -97,19 +97,19 @@ function checkHits(squares, player, playerDirection){
         (player === currentPlayerTwo && squares[player[0]+playerDirection].classList.contains("playerTwo")) || 
         (player === currentPlayerOne && squares[player[0]].classList.contains("playerTwo")) ||
         (player === currentPlayerTwo && squares[player[0]].classList.contains("playerOne"))) {
-            playAudio(crash);
+            playAudio(crash, 'sound');
             return true;
     } else {
         if (squares[player[0]+playerDirection].classList.contains("lifeUp")){
             if (player === currentPlayerOne) {
                 squares[player[0]+playerDirection].classList.remove("lifeUp")
                 playerOneLives ++;
-                playAudio(extraLife);
+                playAudio(extraLife, 'sound');
                 updateStats();
             } else if (player === currentPlayerTwo) {
                 squares[player[0]+playerDirection].classList.remove("lifeUp")
                 playerTwoLives ++;
-                playAudio(extraLife);
+                playAudio(extraLife, 'sound');
                 updateStats();
             }
         }
@@ -236,32 +236,42 @@ document.addEventListener("keydown",
         } else if (event.key === 'Backspace') {
             reinitialize();
             startGame();
-        } else if (event.key === "y") {
-            localStorage.setItem("audioActive", true);
-            playAudio(disc);
-            message = "";
-        } else if (event.key === "n") {
-            localStorage.setItem("audioActive", false);
+        } else if (event.key === "]") {
+            localStorage.setItem("soundActive", true);
+            localStorage.setItem("musicActive", true);
+            playAudio(encom, 'music');
+        } else if (event.key === "[") {
+            localStorage.setItem("soundActive", false);
+            localStorage.setItem("musicActive", false);
             encom.pause();
             disc.pause();
             end.pause();
+        } else if (event.key === "=") {
+            localStorage.setItem("musicActive", true);
+            playAudio(encom, 'music');
+        } else if (event.key === "-") {
+            localStorage.setItem("musicActive", false);
+            encom.pause();
+            disc.pause();
+            end.pause();
+        }  else if (event.key === "0") {
+            localStorage.setItem("soundActive", true);
+        } else if (event.key === "9") {
+            localStorage.setItem("soundActive", false);
             message = "";
+            audioCheck();
         } else if (event.key === '1') {
             disc.pause();
             end.pause();
-            playAudio(encom);
+            playAudio(encom, 'music');
         } else if (event.key === '2') {
             encom.pause();
             disc.pause()
-            playAudio(end);
+            playAudio(end, 'music');
         } else if (event.key === '3') {
             encom.pause();
             end.pause();
-            playAudio(disc);
-        } else if (event.key === '0') {
-            encom.pause();
-            disc.pause();
-            end.pause();
+            playAudio(disc, 'music');
         }
 });
 // Computer AI logic
@@ -346,29 +356,21 @@ function off() {
 function editOverlay(content) {
     document.querySelector("#overlay-content").innerHTML = `${content}`;
 };
-// Function animate overlay
-function popUpOverlay () {
-    $("#overlay-content").animate({
-        height: '250px',
-        width: '800px',
-    },1500)
-};
 function overlayMessage(status) {
     if (status === 'start') {
-        popUpOverlay();
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large">Grid lightcycle.exe load complete. Program resolution complete. <br>User ready?...<div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE to Start <br><br> Press SHIFT to go to Menu</div>'
     } else if (status === 'roundBlue') {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-one-name">Player 1</span> wins round!<br><br> <span class="player-two-name">Player 2</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'roundOrange') {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round!<br><br> <span class="player-one-name">Player 1</span> program derezzed! <div class="blinking-cursor"></div></div><br><div class="message-small">Press SPACE for Next Round <br><br> Press SHIFT to go to Menu</div>';
     } else if (status === 'blueWinner') {
-        playAudio(winner);
+        playAudio(winner, 'sound');
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     } else if (status === 'orangeWinner') {
         if(cpuActive === 'true'){
-            playAudio(loser);
+            playAudio(loser, 'sound');
         } else if(cpuActive === 'false') {
-            playAudio(winner);
+            playAudio(winner, 'sound');
         }
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-two-name">Player 2</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press BACKSPACE for New Game <br><br>Press SHIFT to go to Menu</div>';
     }
@@ -390,8 +392,10 @@ function reinitialize() {
         squares[i].classList.remove("playerOne","playerTwo")
     };
 };
-function playAudio (sound) {
-    if (localStorage.getItem("audioActive") === 'true') {
+function playAudio (sound, type) {
+    if (localStorage.getItem("musicActive") === 'true' && type === 'music') {
+        sound.play();
+    } else if (localStorage.getItem("soundActive") === 'true' && type === 'sound') {
         sound.play();
     } else {
         return;
