@@ -6,7 +6,7 @@ Link to GitHub project (https://vincelaq.github.io/tron-lightcycle-game/)
 ### Gameplay
 The game is a head-to-head version of classic game "Snake". Like the original version of the game, a player inputs a directional change, when needed, to a lead box that automatically moves and a "tail" follows. 
 
-Unlike the original game where you collect "apples" and your snake's tail grows longer, Tron Lightcycle Battle does not have a tail, but any space that has been occupied by the player(s) in the past will be considered a wall to crash into for the entire round. This game also puts players against each other (or against a CPU) in a last-player-standing premise wins the game. 
+Unlike the original game where you collect "apples" and your snake's tail grows longer, Tron Lightcycle Battle does not have a tail, but any space that has been occupied by the player(s) in the past will be considered a wall to crash into for the entire round. This game also puts players against each other (or against a CPU) in a last-player-standing wins the game. 
 
 ![alt text](images/landing.png)
 
@@ -15,7 +15,7 @@ Each player has five lives at the start of the game. When a player crashes into 
 ![alt text](images/gameplay.png)
 
 ### Design
-Aside from the gameplay being based on the original "Snake" game, the design concept and visuals was straight from the Tron movies. The premise behind the movie is that the main character is sucked into a super computer where he has to play games to avoid getting deresolutioned ("derezzed") or, in other words, computer death (or in the main character's case, actual death). One of these games is a lightcycle game. Both Tron movies (Tron and Tron: Legacy) feature a lightcycle scene, where the lightcycle generates a wall in its trail for opponents to crash into.
+Aside from the gameplay being based on the original "Snake" game, the design concept and visuals was straight from the Tron movies. The premise behind the movie is that the main character is sucked into a super computer where he has to play games to avoid getting deresolutioned ("derezzed") or, in other words, computer death (or in the main character's case, actual death). One of these games is a lightcycle game. Both Tron movies (Tron and Tron: Legacy) feature a lightcycle scene, where the lightcycle generates a wall in its trail for opponents to crash into.<br>
 ![alt text](images/original-lightcycle.gif)
 ![alt text](images/crash.gif)
 ![alt text](images/legacy-lightcycle2.gif)
