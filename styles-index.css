@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 body {
     background-color: black;
-    width: 1600px;
+    max-width: 100%;
     margin: 0 auto;
 }
 .grid {
@@ -54,40 +54,49 @@ body {
 }
 .home {
     /* border: 1px solid yellow; */
-    height: 800px;
+    height: 100%;
 }
 #left {
-    width: 24%;
+    min-width: 10%;
+    max-width: 24%;
+    min-height: 100%;
+    /* border: 1px solid yellow; */
 }
 #right {
-    width: 24%
+    min-width: 10%;
+    max-width: 24%;
+    /* border: 1px solid yellow; */
+    overflow: hidden;
 }
 #center {
     width: 800px;
     text-align: center;
+    min-height: 100%;
+    /* border: 1px solid yellow; */
+    overflow: hidden;
 }
 #landing-container {
     /* border: 1px solid pink; */
     display: flex;
     flex-wrap: wrap;
-    height: 900px;
+    min-height: 100%;
     justify-content: center;
 }
 footer {
     /* border: 1px solid green; */
     width: 100%;
-    height: 100px;
+    height: fit-content;
 }
 #tron-logo {
     width: 650px;
-    margin-top: 70px;
+    margin-top: 55px;
     /* border: 1px solid purple; */
 }
 #menu-container {
     /* border: 1px solid blue; */
     color: white;
-    margin-top: 55px;
-    margin-bottom: 65px;
+    margin-top: 70px;
+    margin-bottom: 5%;
 }
 #menu {
     display: flex;
@@ -214,7 +223,7 @@ li {
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     padding: 20px;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.9);
 }
 #white-box {
     width: 20px;

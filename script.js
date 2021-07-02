@@ -459,6 +459,8 @@ function overlayMessage(status) {
         }
     } else if (status === 'orangeWinner') {
         if(cpuActive === 'true'){
+            cpuLevel = 1;
+            speed = 1;
             playAudio(loser, 'sound');
         } else if(cpuActive === 'false') {
             playAudio(winner, 'sound');
