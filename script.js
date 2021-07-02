@@ -61,7 +61,9 @@ function startGame(){
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
     if (cpuActive === 'true') {
-        computer();
+        if(currentPlayerTwo[0] < 11959 || currentPlayerTwo[0] > 11999) {
+            computer();
+        }    
     }
     if (checkHits(squares, currentPlayerOne, direction)) {
         playerOneLives -= 1;
@@ -276,59 +278,136 @@ document.addEventListener("keydown",
 });
 // Computer AI logic
 function computer() {
+    let endLogic = randomizeAI();
+    if (endLogic) {
+        return;
+    } else {
+        logicAI();
+    }
+};
+// Function for AI Logic
+function logicAI () {
     let squares = document.querySelectorAll(".grid div");
     if (directionTwo === xDirection) {
         if ((currentPlayerTwo[0]+3) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+3].classList.contains("playerOne") || squares[currentPlayerTwo[0]+3].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(480)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(1120)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo")) {
                 directionTwo = -yDirection;
             } else {
                 directionTwo = yDirection;
             }
+        } else {
+            return;
         }
     } else if (directionTwo === -xDirection){
         if ((currentPlayerTwo[0]-3) % yDirection === 0 || squares[currentPlayerTwo[0]-3].classList.contains("playerOne") || squares[currentPlayerTwo[0]-3].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(320)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]+(1120)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo")) {
                 directionTwo = -yDirection;
             } else {
                 directionTwo = yDirection;
             }
+        } else {
+            return;
         }
     } else if(directionTwo === yDirection) {
-        if ((currentPlayerTwo[0]+(320)) + yDirection >= (yDirection * 80) || squares[currentPlayerTwo[0]+(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(240)].classList.contains("playerTwo")) {
+        if ((currentPlayerTwo[0]+(1120)) + yDirection >= (yDirection * 80) || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo")) {
             if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
                 directionTwo = -xDirection;
             } else {
                 directionTwo = xDirection;
             }
+        } else {
+            return;
         }
     } else if(directionTwo === -yDirection) {
-        if ((currentPlayerTwo[0]-(320)) - yDirection <= 0 || squares[currentPlayerTwo[0]-(240)].classList.contains("playerOne") || squares[currentPlayerTwo[0]-(240)].classList.contains("playerTwo")) {
-            if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+        if ((currentPlayerTwo[0]-(1120)) - yDirection <= 0 || squares[currentPlayerTwo[0]-(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]-(320)].classList.contains("playerTwo")) {
+            if((currentPlayerTwo[0]-(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
                 directionTwo = -xDirection;
             } else {
                 directionTwo = xDirection;
             }
+        } else {
+            return;
         }
-    // }
-    // // Adding random factor to AI
-    // if(Math.floor(Math.random()*150) === 7) {
-    //     if(Math.floor(Math.random()*2) === 0) {
-    //         if(Math.abs(directionTwo) === xDirection) {
-    //             directionTwo = -yDirection
-    //         } else {
-    //             directionTwo = -xDirection
-    //         }
-    //     } else {
-    //         if(Math.abs(directionTwo) === xDirection) {
-    //             directionTwo = yDirection
-    //         } else {
-    //             directionTwo = xDirection
-    //         }
-    //     }
-    } else {
-        return;
     }
 }
+// Adding random factor to AI (if success, random towards either player or life)
+function randomizeAI (){
+    if(Math.floor(Math.random()* 100) === 1) {
+        if(!currentLife[0]) {
+            if(currentPlayerOne[0] > currentPlayerTwo[0]) {
+                if(Math.abs(directionTwo) === xDirection) {
+                    if((currentPlayerTwo[0]+(1120)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo")) {
+                        return false;
+                    } else {
+                        directionTwo = yDirection;
+                        return true;
+                    }
+                } else if (Math.abs(directionTwo) === yDirection) {
+                    if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(1)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(1)].classList.contains("playerTwo") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+                        return false;
+                    } else {
+                        directionTwo = xDirection;
+                        return true;
+                    }
+                }
+            } else if (currentPlayerOne[0] < currentPlayerTwo[0]) {
+                if(Math.abs(directionTwo) === xDirection) {
+                    if((currentPlayerTwo[0]+(1120)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo")) {
+                        directionTwo = -yDirection;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (Math.abs(directionTwo) === yDirection) {
+                    if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+                        directionTwo = -xDirection;
+                    return true;
+                    } else {
+                        directionTwo = xDirection;
+                    }
+                }
+            }
+        } else {
+            if(currentLife[0] > currentPlayerTwo[0]) {
+                if(Math.abs(directionTwo) === xDirection) {
+                    if((currentPlayerTwo[0]+(1120)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo")) {
+                        return false;
+                    } else {
+                        directionTwo = yDirection;
+                        return true;
+                    }
+                } else if (Math.abs(directionTwo) === yDirection) {
+                    if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(1)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(1)].classList.contains("playerTwo") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+                        return false;
+                    } else {
+                        directionTwo = xDirection;
+                        return true;
+                    }
+                }
+            } else if (currentLife[0] < currentPlayerTwo[0]) {
+                if(Math.abs(directionTwo) === xDirection) {
+                    if((currentPlayerTwo[0]+(1120)) >= (yDirection * 80) || squares[currentPlayerTwo[0]+(160)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(160)].classList.contains("playerTwo") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(320)].classList.contains("playerTwo")) {
+                        directionTwo = -yDirection;
+                        return true;
+                    } else {
+                        return false
+                    }
+                } else if (Math.abs(directionTwo) === yDirection) {
+                    if((currentPlayerTwo[0]+(3)) % yDirection === (yDirection -1) || squares[currentPlayerTwo[0]+(1)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(1)].classList.contains("playerTwo") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerOne") || squares[currentPlayerTwo[0]+(3)].classList.contains("playerTwo")) {
+                        directionTwo = -xDirection;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    
+                }
+            }
+        }
+    } else {
+        return false;
+    }
+};
+// Function to update stats
 function updateStats() {
     let oneLives = document.querySelector("#player-one-lives");
     let twoLives = document.querySelector("#player-two-lives");
