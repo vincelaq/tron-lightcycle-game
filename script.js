@@ -22,6 +22,8 @@ let playerOneScore = 0;
 let playerTwoScore = 0;
 let gameStatus = 'start';
 let cpuActive = localStorage.getItem("cpuActive");
+let cpuLevel;
+let speed = 1;
 // Identify game constants
 let yDirection = 160;
 let xDirection = 1;
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
     createBoard();
     startGame();
     playAudio(disc, 'music');
+    cpuLevel = 1;
 });
 // Function to create grid
 function createBoard(){ 
@@ -61,7 +64,7 @@ function startGame(){
 function moveOutcome() {
     let squares = document.querySelectorAll(".grid div");
     if (cpuActive === 'true') {
-        if(currentPlayerTwo[0] < 11959 || currentPlayerTwo[0] > 11999) {
+        if(currentPlayerTwo[0] < 11949 || currentPlayerTwo[0] > 11999) {
             computer();
         }    
     }
@@ -225,10 +228,10 @@ document.addEventListener("keydown",
             }
         } else if (event.code === 'Space' && document.getElementById("overlay").style.display === "block" && gameStatus !== 'blueWinner' && gameStatus !== 'orangeWinner') {
             if (gameStatus === 'start') {
-                interval = setInterval(moveOutcome,40);
+                interval = setInterval(moveOutcome,(40*speed));
                 off();               
             } else if (gameStatus === 'roundBlue' || gameStatus === 'roundOrange') {
-                interval = setInterval(moveOutcome,40);
+                interval = setInterval(moveOutcome,(40*speed));
                 off();
             } else {
                 off();
@@ -278,7 +281,10 @@ document.addEventListener("keydown",
 });
 // Computer AI logic
 function computer() {
-    let endLogic = randomizeAI();
+    let endLogic;
+    if (cpuLevel === 2) {
+        endLogic = randomizeAI();
+    };
     if (endLogic) {
         return;
     } else {
@@ -444,7 +450,13 @@ function overlayMessage(status) {
         return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><span class="player-two-name">Player 2</span> wins round! <div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">SPACE</span> for Next Round <br><br> Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
     } else if (status === 'blueWinner') {
         playAudio(winner, 'sound');
-        return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">BACKSPACE</span> for New Game <br><br>Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
+        if (cpuActive === 'true') {
+            cpuLevel ++;
+            speed *= .8;
+            return `<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! And advances to the next level! <br><br>Play level ${cpuLevel}?<div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">BACKSPACE</span> for Next Level <br><br>Press <span class="overlay-key">SHIFT</span> to go to Menu</div>`;
+        } else if (cpuActive === 'false'){
+            return '<div class ="message-title">!!!Alert!!!</div><div class="message-large"><br><span class="player-one-name">Player 1</span> WINS! <br><br>Play again?<div class="blinking-cursor"></div></div><br><div class="message-small">Press <span class="overlay-key">BACKSPACE</span> for New Game <br><br>Press <span class="overlay-key">SHIFT</span> to go to Menu</div>';
+        }
     } else if (status === 'orangeWinner') {
         if(cpuActive === 'true'){
             playAudio(loser, 'sound');
