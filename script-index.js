@@ -9,16 +9,16 @@ const menuSelect = new Audio('audio/menu-select.wav');
 let message;
 // Listeners for menu hover
 $(`#menu-item-0`).hover(function(){
-    $(`#menu-icon-0`).html('<img class="selection-icon" src="images/blue-disc.png">');
+    $(`#menu-item-0`).css({"border-color": "rgb(214, 151, 87)","box-shadow": "0px 0px 15px 1px rgb(190, 68, 53)"});
     playAudio(menuItem, 'sound');
     }, function(){
-    $(`#menu-icon-0`).html("");
+    $(`#menu-item-0`).css({"border-color": "","box-shadow": ""});
 });
 $(`#menu-item-1`).hover(function(){
-    $(`#menu-icon-1`).html('<img class="selection-icon" src="images/blue-disc.png">');
+    $(`#menu-item-1`).css({"border-color": "rgb(214, 151, 87)","box-shadow": "0px 0px 15px 1px rgb(190, 68, 53)"});
     playAudio(menuItem, 'sound');
     }, function(){
-    $(`#menu-icon-1`).html("");
+    $(`#menu-item-1`).css({"border-color": "","box-shadow": ""});
 });
 $(`#menu-item-2`).hover(function(){
     $(`#menu-icon-2`).html('<img class="selection-icon" src="images/blue-disc.png">');
