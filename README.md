@@ -64,13 +64,13 @@ My approach to development was to have specific milestones that either meet Mini
 
 ### Extra Milestones Not Achieved
   - Create a player vs CPU level progression
-      - Increase CPU AI
+      - Increase CPU AI (Added Jul 1 2021)
       - Increase number of CPU opponents
       - increase arena wall obstacles
           - "Islands" in the center of the map
   - Create a "boost" option
   - Create a wall "on" and "off"
-  - Add music and sound effects
+  - Add music and sound effects (Added Jun 29 2021)
 
 ## Challenges:
 Every challenge was solved by "googling"
@@ -86,5 +86,5 @@ Every challenge was solved by "googling"
 
 ## Additional information:
 ### Identified Bugs Still in Production
-1. Players can cross eachother and game still continues - Game script allows this because at a specific moment the movement ahead is an empty square, by the time the CSS application and game check runs, another player has occupied it and running the same checks.
-2. Frame rate lag - The game lags at certain times because of the numbe of functions, calculations and checks it has to do for each interval.
+1. Players can cross eachother and game still continues - Game script allows this because at a specific moment the movement ahead is an empty square, by the time the CSS application and game check runs, another player has occupied it and running the same checks. (Fixed as of June 30, 2021)
+2. Frame rate lag - The game lags at certain times because of the numbe of functions, calculations and checks it has to do for each interval. 
