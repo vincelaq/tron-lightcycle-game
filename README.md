@@ -16,22 +16,22 @@ Each player has five lives at the start of the game. When a player crashes into 
 
 ### Design
 Aside from the gameplay being based on the original "Snake" game, the design concept and visuals was straight from the Tron movies. The premise behind the movie is that the main character is sucked into a super computer where he has to play games to avoid getting deresolutioned ("derezzed") or, in other words, computer death (or in the main character's case, actual death). One of these games is a lightcycle game. Both Tron movies (Tron and Tron: Legacy) feature a lightcycle scene, where the lightcycle generates a wall in its trail for opponents to crash into.<br>
-![alt text](images/original-lightcycle.gif)
-![alt text](images/crash.gif)
-![alt text](images/legacy-lightcycle2.gif)
-![alt text](images/crash2.gif)
+![alt text](images/original-lightcycle.gif) <br>
+![alt text](images/crash.gif) <br>
+![alt text](images/legacy-lightcycle2.gif) <br>
+![alt text](images/crash2.gif) <br>
 
 ## Wireframes:
 ### Original Concept
 The images below show the original concept used in the project pitch. The design is very minimal and very few elements were used. The wireframe is similar to what ended up in the final layout.
 
-![alt text](images/wireframe4.png)
-![alt text](images/wireframe3.png)
+![alt text](images/wireframe4.png) <br>
+![alt text](images/wireframe3.png) <br>
 
 ## Technologies Used:
     - HTML
     - CSS
-    - JavaScript
+    - JavaScript (no canvas)
     - Google Fonts
     - jQuery
 
@@ -73,7 +73,7 @@ My approach to development was to have specific milestones that either meet Mini
   - Add music and sound effects (Added Jun 29 2021)
 
 ## Challenges:
-Every challenge was solved by "googling"
+Every challenge was solved by "googling" or trail/error
   - Creating logic for box to "move" was very abstract because the box isn't actually moving. Overcame this by analyzing the "movement" step-by-step:
     1. Identify the different grid positions
     2. Identify player position with an index equal to the grid position
@@ -88,3 +88,4 @@ Every challenge was solved by "googling"
 ### Identified Bugs Still in Production
 1. Players can cross eachother and game still continues - Game script allows this because at a specific moment the movement ahead is an empty square, by the time the CSS application and game check runs, another player has occupied it and running the same checks. (Fixed as of June 30, 2021)
 2. Frame rate lag - The game lags at certain times because of the numbe of functions, calculations and checks it has to do for each interval. 
+3. Content window resizing is limited. Game page is best for maximized browser window with high resolution. I would have to do a CSS overhaul to accomodated different browser window sizes
